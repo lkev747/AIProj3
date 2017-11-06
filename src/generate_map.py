@@ -101,6 +101,17 @@ def generate_map():
      ## ----- End Loop ----- ##
      ## ----- End Highway Path Creation ----- ##
      
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
      ## ----- Printing Map ----- ##
      for x in range(0, rows):
           for y in range(0, columns):
