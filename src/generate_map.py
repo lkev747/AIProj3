@@ -65,6 +65,10 @@ def generate_map():
      
      ## ----- Pick Random Boundry Cell ----- ##
           random_boundry_number = random.randint(0, (2*rows + 2*columns - 4))
+          
+          ## Testing
+          #random_boundry_number = rows+2*columns-4-1
+          
           print(random_boundry_number)
           for r in range(0, rows):
                for c in range(0, columns):
@@ -128,6 +132,7 @@ def generate_map():
      
           border_reached = True
           
+          print("Direction: ", direction)
           while(border_reached):
                current_highway_length = highway_length
                
@@ -142,12 +147,15 @@ def generate_map():
                          behind = -direction
                          
                          for r in range(0, highway_length - 1):
-                              if(current_row + r + 1 < rows):
-                                   empty_map[current_row + r + 1][current_column] = 'r'
+                              if(current_row + r + 1 == rows):
+                                        border_reached = False
+                              elif(current_row + r + 1 < rows):
+                                   empty_map[current_row + r + 1][current_column] = 'a'
                               else:
                                    border_reached = False
-                                   
-                         direction = choose_direction(direction)
+                         
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)
                          current_row += highway_length - 1
                               ## Choose direction     
                               
@@ -157,11 +165,14 @@ def generate_map():
                          
                          for c in range(0, highway_length - 1):
                               if(current_column + c + 1 < columns):
-                                   empty_map[current_row][current_column + c + 1] = 'r'
+                                   empty_map[current_row][current_column + c + 1] = 'b'
+                                   if(current_column + c == columns):
+                                        border_reached = False
                               else:
                                    border_reached = False   
-                                   
-                         direction = choose_direction(direction)  
+                         
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)  
                          current_column += highway_length - 1
                               
                     elif (direction == -2):   # Left -> Up
@@ -169,12 +180,15 @@ def generate_map():
                          behind = -direction
                          
                          for r in range(0, highway_length - 1):
-                              if(current_row - highway_length + 1 + r >= 0):
-                                   empty_map[current_row - highway_length + 1 + r][current_column] = 'r'
+                              if(current_row - highway_length + r + 1 >= 0):
+                                   empty_map[current_row - highway_length + r + 1][current_column] = 'c'
+                                   if(current_row - highway_length + r + 1 == 0):
+                                        border_reached = False
                               else:
                                    border_reached = False
-                                   
-                         direction = choose_direction(direction)
+                         
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)
                          current_row -= highway_length - 1
                               
                     else:# direction = -1    # Down -> Left
@@ -182,12 +196,15 @@ def generate_map():
                          behind = -direction
                          
                          for c in range(0, highway_length - 1):
-                              if(current_column - highway_length + 1 + c >= 0):
-                                   empty_map[current_row][current_column - highway_length + 1 + c] = 'r'
+                              if(current_column - highway_length + c + 1 >= 0):
+                                   empty_map[current_row][current_column - highway_length + c + 1] = 'd'
+                                   if(current_column - highway_length + c + 1 == 0):
+                                        border_reached = False
                               else:
                                    border_reached = False
                                    
-                         direction = choose_direction(direction)
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)
                          current_column -= highway_length - 1
                     # draw 19 block
                     # else (temp = 2) turn left
@@ -198,12 +215,15 @@ def generate_map():
                          behind = -direction
                          
                          for r in range(0, highway_length - 1):
-                              if (current_row - highway_length + 1 + r >= 0):
-                                   empty_map[current_row - highway_length + 1 + r][current_column] = 'r'
+                              if (current_row - highway_length + r + 1 >= 0):
+                                   empty_map[current_row - highway_length + r + 1][current_column] = 'e'
+                                   if(current_row - highway_length + r + 1 == 0):
+                                        border_reached = False
                               else:
                                    border_reached = False
                                    
-                         direction = choose_direction(direction)
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)
                          current_row -= highway_length - 1
                                    
                     elif (direction == 1):  # Up -> Left
@@ -211,25 +231,32 @@ def generate_map():
                          behind = -direction
                          
                          for c in range(0, highway_length - 1):
-                              if (current_column - highway_length + 1 + c >= 0):
-                                   empty_map[current_row][current_column - highway_length + 1 + c] = 'r'
+                              if (current_column - highway_length + c + 1 >= 0):
+                                   empty_map[current_row][current_column - highway_length + c + 1] = 'f'
+                                   if(current_column - highway_length + c == 0):
+                                        border_reached = False
                               else:
                                    border_reached = False
-                                   
-                         direction = choose_direction(direction)
+                         
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)
                          current_column -= highway_length - 1
                                    
                     elif (direction == -2):  # Left -> Down
                          direction = -1
                          behind = -direction
                          
+                         # Index Error
                          for r in range(0, highway_length - 1):
                               if (current_row + r + 1 < rows):
-                                   empty_map[current_row + r + 1][current_column] = 'r'
+                                   empty_map[current_row + r + 1][current_column] = 'g'
+                                   #if(current_row + r + 1 == rows):
+                                   #     border_reached = False
                               else:
                                    border_reached = False
-                                   
-                         direction = choose_direction(direction)
+                         
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)
                          current_row += highway_length - 1
                                    
                     else:# direction = -1    # Down -> Right
@@ -238,11 +265,14 @@ def generate_map():
                          
                          for c in range(0, highway_length - 1):
                               if (current_column + c + 1 < columns):
-                                   empty_map[current_row][current_column + c + 1] = 'r'
+                                   empty_map[current_row][current_column + c + 1] = 'h'
+                                   if(current_column + c == columns - 1):
+                                        border_reached = False
                               else:
                                    border_reached = False
                          
-                         direction = choose_direction(direction)  
+                         print("Direction: ", direction)
+                         #direction = choose_direction(direction)  
                          current_column += highway_length - 1
                               
                     # draw 19 block
@@ -253,147 +283,67 @@ def generate_map():
                elif (temp == 3):
                     # draw 20 block
                     ## Copied
-                    if (abs(direction) == 1):
-                         if (direction > 0):
-                              # Go Up
-                              for r in range (0, highway_length):
-                                   if(current_row - highway_length + r >= 0):
-                                        empty_map[current_row - highway_length + r][current_column] = 'r' 
-                                   else:
+                    if (direction == 1):
+                         # Go Up
+                         for r in range (0, highway_length):
+                              if(current_row - highway_length + r >= 0):
+                                   empty_map[current_row - highway_length + r][current_column] = 'i'
+                                   if(current_row - highway_length + r == 0):
                                         border_reached = False
-                              
-                              direction = choose_direction(direction)          
-                              current_row -= highway_length
-
-                         else:
-                              # Go Down
-                              for r in range (0, highway_length):
-                                   if(current_row + r + 1 < rows):
-                                        empty_map[current_row + r + 1][current_column] = 'r' 
-                                   else:
+                              else:
+                                   border_reached = False
+                         
+                         print("Direction: ", direction)
+                         #direction = choose_direction(direction)          
+                         current_row -= highway_length
+                         
+                    elif (direction == -1):
+                         # Go Down
+                         # Index Error
+                         for r in range (0, highway_length):
+                              if(current_row + r + 1 == rows):
+                                   border_reached = False 
+                              elif(current_row + r + 1 < rows):
+                                   empty_map[current_row + r + 1][current_column] = 'j'
+                              else:
+                                   border_reached = False
+                         
+                         print("Direction: ", direction)          
+                         #direction = choose_direction(direction)          
+                         current_row += highway_length
+                    
+                    elif (direction == 2):          
+                         # Go Right 
+                         for c in range (0, highway_length):
+                              if(current_column + c + 1 == columns):
                                         border_reached = False
-                                        
-                              direction = choose_direction(direction)          
-                              current_row += highway_length
-                              
-                    elif (abs(direction) == 2):
-                         if (direction > 0):
-                              # Go Right 
-                              for c in range (0, highway_length):
-                                   if(current_column + c + 1 < columns):
-                                        empty_map[current_row][current_column + c + 1] = 'r' 
-                                   else:
+                              elif(current_column + c + 1 < columns):
+                                   empty_map[current_row][current_column + c + 1] = 'k' 
+                              else:
+                                   border_reached = False
+                         
+                         print("Direction: ", direction)
+                         #direction = choose_direction(direction)          
+                         current_column += highway_length
+                         
+                    elif (direction == -2):
+                         # Go Left
+                         for c in range (0, highway_length):
+                              if(current_column - highway_length + c >= 0):
+                                   empty_map[current_row][current_column - highway_length + c] = 'l'
+                                   if(current_column - highway_length + c == 0):
                                         border_reached = False
-                              
-                              direction = choose_direction(direction)          
-                              current_column += highway_length
-                         else:
-                              # Go Left
-                              for c in range (0, highway_length):
-                                   if(current_column - highway_length + c >= 0):
-                                        empty_map[current_row][current_column - highway_length + c] = 'r'
-                                   else:
-                                        border_reached = False
-                              
-                              direction = choose_direction(direction)          
-                              current_column -= highway_length
+                              else:
+                                   border_reached = False
+                         
+                         print("Direction: ", direction)
+                         #direction = choose_direction(direction)          
+                         current_column -= highway_length
                     ## End Copied
                else:
                     pass
                #border_reached = False
-               '''
-               # Change Direction
-               if(temp <= 2):
-                    current_highway_length -= 1
-                    # Was going Vertical -> will go Horizontal 
-                    if(direction == abs(1)):
-                         if(temp == 1):
-                              direction = 2       # Right
-                              behind = -direction
-                              
-                              for c in range(0, current_highway_length):
-                                   empty_map[current_row][current_column + c] = 'r'
-                                   if(current_column + c == columns - 1):
-                                        border_reached = False
-                              current_row = current_row
-                              current_column = current_column + current_highway_length - 1      
-                              
-                              
-                         else:
-                              direction = -2      # Left
-                              behind = -direction
-                              
-                              for c in range(0, current_highway_length):
-                                   empty_map[current_row][current_column - current_highway_length + c] = 'r'
-                                   if(current_column - current_highway_length + c == 0):
-                                        border_reached = False
-                                        
-                              current_row = current_row
-                              current_column = current_column - current_highway_length + 1
-                              
-                    # Was going Horizontal -> will go Vertical               
-                    elif(direction == abs(2)):
-                         if(temp == 1):
-                              direction = 1       # Down
-                              behind = -direction
-                              
-                              for r in range(0, current_highway_length):
-                                   empty_map[current_row + r][current_column] = 'r'
-                                   if(current_row + r == rows - 1):
-                                        border_reached = False
-                              current_row = current_row + current_highway_length - 1
-                              current_column = current_column           
-                               
-                                   
-                         else:
-                              direction = -1      # Up
-                              behind = -direction
-                              
-                              for r in range(0, current_highway_length):
-                                   empty_map[current_row - current_highway_length + r][current_column] = 'r'
-                                   if(current_row - current_highway_length + r == 0):
-                                        border_reached = False    
-                              current_row = current_row - current_highway_length + 1
-                              current_column = current_column  
-               # Keep same direction
-               else:
-                    if (abs(behind) == 1):
-                         if (behind < 0):
-                              # Go Up
-                              for r in range (0, current_highway_length):
-                                   empty_map[current_row - current_highway_length + r][current_column] = 'r' 
-                                   if(current_row - current_highway_length + r == 0):
-                                        border_reached = False
-                              current_row = current_row - current_highway_length + 1
-                              current_column = current_column  
-                         else:
-                              # Go Down
-                              for r in range (0, current_highway_length):
-                                   empty_map[current_row + r - 1][current_column] = 'r'
-                                   if(current_row + r == rows - 1):
-                                        border_reached = False
-                              current_row = current_row + current_highway_length - 1
-                              current_column = current_column 
-                                        
-                    elif (abs(behind) == 2):
-                         if (behind < 0):
-                              # Go Right 
-                              for c in range (0, current_highway_length):
-                                   empty_map[current_row][current_column + c - 1] = 'r'
-                                   if(current_column  + c == columns - 1):
-                                        border_reached = False
-                              current_row = current_row
-                              current_column = current_column + current_highway_length - 1
-                         else:
-                              # Go Left
-                              for c in range (0, current_highway_length):
-                                   empty_map[current_row][current_column - current_highway_length + c] = 'r'
-                                   if(current_column  - current_highway_length + c == 0):
-                                        border_reached = False
-                              current_row = current_row
-                              current_column = current_column - current_highway_length + 1
-               empty_map[random_boundry_row][random_boundry_column] = 'S'
-               '''
+               
           
        
      ## ----- End Draw Complete Highway Until Boundry is Reached ----- ##
