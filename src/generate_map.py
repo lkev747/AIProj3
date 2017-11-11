@@ -36,7 +36,7 @@ def generate_map():
           #print("Random Y: ", randy)
           
           ## ----- Change Hardened Area ----- ##
-          area = 15                               ## This should be 31
+          area = 31                               ## This should be 31
           mid = int(area / 2)
           for r in range(0, area):
                for c in range(0, area):
@@ -64,10 +64,14 @@ def generate_map():
      
      
      ## ----- Pick Random Boundry Cell ----- ##
-          random_boundry_number = random.randint(0, (2*rows + 2*columns - 4))
+          #random_boundry_number = random.randint(0, (2*rows + 2*columns - 4))
           
           ## Testing
-          #random_boundry_number = rows+2*columns-4-1
+          #random_boundry_number = rows+2*columns-4-1-37-18
+          
+          #random_boundry_number = rows+2*columns-4
+          
+          random_boundry_number = 2*rows + 2*columns - 4 - 19 - 19
           
           print(random_boundry_number)
           for r in range(0, rows):
@@ -101,26 +105,39 @@ def generate_map():
                if (behind < 0):
                     # Go Up
                     for r in range (0, highway_length):
-                         empty_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'r' 
+                         if(empty_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 1):
+                              empty_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'a' 
+                         else:
+                              empty_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'b'
+                              
                     current_row = random_boundry_row - highway_length + 1
                     current_column = random_boundry_column
                else:
                     # Go Down
                     for r in range (0, highway_length):
-                         empty_map[random_boundry_row + r][random_boundry_column] = 'r' 
+                         if(empty_map[random_boundry_row + r][random_boundry_column] == 1):
+                              empty_map[random_boundry_row + r][random_boundry_column] = 'a'
+                         else:
+                              empty_map[random_boundry_row + r][random_boundry_column] = 'b' 
                     current_row = random_boundry_row + highway_length - 1
                     current_column = random_boundry_column
           elif (abs(behind) == 2):
                if (behind < 0):
                     # Go Right 
                     for c in range (0, highway_length):
-                         empty_map[random_boundry_row][random_boundry_column + c] = 'r' 
+                         if(empty_map[random_boundry_row][random_boundry_column + c] == 1):
+                              empty_map[random_boundry_row][random_boundry_column + c] = 'a'
+                         else:
+                              empty_map[random_boundry_row][random_boundry_column + c] = 'b' 
                     current_row = random_boundry_row
                     current_column = random_boundry_column + highway_length - 1
                else:
                     # Go Left
                     for c in range (0, highway_length):
-                         empty_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'r'
+                         if(empty_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 1):
+                              empty_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'a'
+                         else:
+                              empty_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'b'
                     current_row = random_boundry_row
                     current_column = random_boundry_column - highway_length + 1
           empty_map[random_boundry_row][random_boundry_column] = 'S' 
@@ -151,6 +168,12 @@ def generate_map():
                                         border_reached = False
                               elif(current_row + r + 1 < rows):
                                    empty_map[current_row + r + 1][current_column] = 'a'
+                                   '''
+                                   if(empty_map[current_row + r + 1][current_column] == 1):
+                                        empty_map[current_row + r + 1][current_column] = 'a'
+                                   else:
+                                        empty_map[current_row + r + 1][current_column] = 'b'
+                                   '''
                               else:
                                    border_reached = False
                          
@@ -164,10 +187,17 @@ def generate_map():
                          behind = -direction
                          
                          for c in range(0, highway_length - 1):
-                              if(current_column + c + 1 < columns):
-                                   empty_map[current_row][current_column + c + 1] = 'b'
-                                   if(current_column + c == columns):
+                              if(current_column + c + 1 == columns):
                                         border_reached = False
+                              elif(current_column + c + 1 < columns):
+                                   empty_map[current_row][current_column + c + 1] = 'b'
+                                   '''
+                                   if(empty_map[current_row][current_column + c + 1] == 1):
+                                        empty_map[current_row][current_column + c + 1] = 'a'
+                                   else:
+                                        empty_map[current_row][current_column + c + 1] = 'b'
+                                   '''
+                                   
                               else:
                                    border_reached = False   
                          
@@ -182,6 +212,12 @@ def generate_map():
                          for r in range(0, highway_length - 1):
                               if(current_row - highway_length + r + 1 >= 0):
                                    empty_map[current_row - highway_length + r + 1][current_column] = 'c'
+                                   '''
+                                   if(empty_map[current_row - highway_length + r + 1][current_column] == 1):
+                                        empty_map[current_row - highway_length + r + 1][current_column] = 'a'
+                                   else:
+                                        empty_map[current_row - highway_length + r + 1][current_column] = 'b'
+                                   '''
                                    if(current_row - highway_length + r + 1 == 0):
                                         border_reached = False
                               else:
@@ -198,6 +234,12 @@ def generate_map():
                          for c in range(0, highway_length - 1):
                               if(current_column - highway_length + c + 1 >= 0):
                                    empty_map[current_row][current_column - highway_length + c + 1] = 'd'
+                                   '''
+                                   if(empty_map[current_row][current_column - highway_length + c + 1] == 1):
+                                        empty_map[current_row][current_column - highway_length + c + 1] = 'a'
+                                   else:
+                                        empty_map[current_row][current_column - highway_length + c + 1] = 'b'
+                                   '''
                                    if(current_column - highway_length + c + 1 == 0):
                                         border_reached = False
                               else:
@@ -217,6 +259,12 @@ def generate_map():
                          for r in range(0, highway_length - 1):
                               if (current_row - highway_length + r + 1 >= 0):
                                    empty_map[current_row - highway_length + r + 1][current_column] = 'e'
+                                   '''
+                                   if(empty_map[current_row - highway_length + r + 1][current_column] == 1):
+                                        empty_map[current_row - highway_length + r + 1][current_column] = 'a'
+                                   else:
+                                        empty_map[current_row - highway_length + r + 1][current_column] = 'b'
+                                   '''
                                    if(current_row - highway_length + r + 1 == 0):
                                         border_reached = False
                               else:
@@ -233,6 +281,12 @@ def generate_map():
                          for c in range(0, highway_length - 1):
                               if (current_column - highway_length + c + 1 >= 0):
                                    empty_map[current_row][current_column - highway_length + c + 1] = 'f'
+                                   '''
+                                   if(empty_map[current_row][current_column - highway_length + c + 1] == 1):
+                                        empty_map[current_row][current_column - highway_length + c + 1] = 'a'
+                                   else:
+                                        empty_map[current_row][current_column - highway_length + c + 1] = 'b'
+                                   '''
                                    if(current_column - highway_length + c == 0):
                                         border_reached = False
                               else:
@@ -249,7 +303,16 @@ def generate_map():
                          # Index Error
                          for r in range(0, highway_length - 1):
                               if (current_row + r + 1 < rows):
+                                   if(current_row + r + 1 == rows - 1):
+                                        border_reached = False
+                                        
                                    empty_map[current_row + r + 1][current_column] = 'g'
+                                   '''
+                                   if(empty_map[current_row + r + 1][current_column] == 1):
+                                        empty_map[current_row + r + 1][current_column] = 'a'
+                                   else:
+                                        empty_map[current_row + r + 1][current_column] = 'b'
+                                   '''
                                    #if(current_row + r + 1 == rows):
                                    #     border_reached = False
                               else:
@@ -266,6 +329,12 @@ def generate_map():
                          for c in range(0, highway_length - 1):
                               if (current_column + c + 1 < columns):
                                    empty_map[current_row][current_column + c + 1] = 'h'
+                                   '''
+                                   if(empty_map[current_row][current_column + c + 1] == 1):
+                                        empty_map[current_row][current_column + c + 1] = 'a'
+                                   else:
+                                        empty_map[current_row][current_column + c + 1] = 'b'
+                                   '''
                                    if(current_column + c == columns - 1):
                                         border_reached = False
                               else:
@@ -288,6 +357,12 @@ def generate_map():
                          for r in range (0, highway_length):
                               if(current_row - highway_length + r >= 0):
                                    empty_map[current_row - highway_length + r][current_column] = 'i'
+                                   '''
+                                   if(empty_map[current_row - highway_length + r][current_column] == 1):
+                                        empty_map[current_row - highway_length + r][current_column] = 'a'
+                                   else:
+                                        empty_map[current_row - highway_length + r][current_column] = 'b'
+                                   '''     
                                    if(current_row - highway_length + r == 0):
                                         border_reached = False
                               else:
@@ -305,6 +380,12 @@ def generate_map():
                                    border_reached = False 
                               elif(current_row + r + 1 < rows):
                                    empty_map[current_row + r + 1][current_column] = 'j'
+                                   '''
+                                   if(empty_map[current_row + r + 1][current_column] == 1):
+                                        empty_map[current_row + r + 1][current_column] = 'a'
+                                   else:
+                                        empty_map[current_row + r + 1][current_column] = 'b'
+                                   '''
                               else:
                                    border_reached = False
                          
@@ -318,7 +399,13 @@ def generate_map():
                               if(current_column + c + 1 == columns):
                                         border_reached = False
                               elif(current_column + c + 1 < columns):
-                                   empty_map[current_row][current_column + c + 1] = 'k' 
+                                   empty_map[current_row][current_column + c + 1] = 'k'
+                                   '''
+                                   if(empty_map[current_row][current_column + c + 1] == 1):
+                                        empty_map[current_row][current_column + c + 1] = 'a'
+                                   else:
+                                        empty_map[current_row][current_column + c + 1] = 'b' 
+                                   '''
                               else:
                                    border_reached = False
                          
@@ -331,6 +418,12 @@ def generate_map():
                          for c in range (0, highway_length):
                               if(current_column - highway_length + c >= 0):
                                    empty_map[current_row][current_column - highway_length + c] = 'l'
+                                   '''
+                                   if(empty_map[current_row][current_column - highway_length + c] == 1):
+                                        empty_map[current_row][current_column - highway_length + c] = 'a'
+                                   elif(empty_map[current_row][current_column - highway_length + c] == 2):
+                                        empty_map[current_row][current_column - highway_length + c] = 'b'
+                                   '''
                                    if(current_column - highway_length + c == 0):
                                         border_reached = False
                               else:
@@ -342,10 +435,6 @@ def generate_map():
                     ## End Copied
                else:
                     pass
-               #border_reached = False
-               
-          
-       
      ## ----- End Draw Complete Highway Until Boundry is Reached ----- ##
      
      ## ----- Check Highway Validity  ----- ##
@@ -353,6 +442,16 @@ def generate_map():
      ## Check Highway Intersections
      ## If restart: go back to "Highway Path Creation"
      ## ----- End Check Highway Validity ----- ##
+     
+     ## ----- Create Blocked Cells ----- ##
+     '''
+     for r in range(0, rows):
+          for c in range(0, columns):
+               temp = random.randint(1,5)
+               if(temp == 1 and (empty_map[r][c] != 'a' or empty_map[r][c] != 'b')):                    
+                    empty_map[r][c] = 0
+     '''
+     ## ----- End Create Blocked Cells ----- ##
      
      ## ----- End Loop ----- ##
      ## ----- End Highway Path Creation ----- ##
@@ -385,6 +484,13 @@ def choose_direction(current_direction):
      print("Current Direction: ", current_direction)
      print("Chosen Direction:", direction)
      return direction
+
+def check_edge(xValue, yValue, rows, columns):
+     if(xValue + 1 == rows or xValue == 0 or yValue + 1 == columns or yValue == 0):
+          return True
+     else:
+          return False
+     
 
 ## ----- Unit Test ----- ##
 
