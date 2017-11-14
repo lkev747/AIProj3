@@ -48,393 +48,409 @@ def generate_map():
           ## ----- End Change Hardened Area ----- ##
           
           ## ----- Center of Hardened Area ----- ##
-          empty_map[randx][randy] = 3
+          #empty_map[randx][randy] = 3
           ## ----- End Center of Hardened Area ----- ##
           
      ## ----- End Harder to Traverse Cells ----- ##
      
+     ## ----- Valid Highway Path Creation ----- ##
+     overlap = True
+     counter = 0
+     #highway_map = empty_map
+     highway_map = empty_map[:]
      
-     
-     ## ----- Highway Paths Creation ----- ##
-     ## ----- Loop ----- ##
-     number_of_highways = 4
-     highway_length = 20      # change to 20
-     
-     for path in range(0, number_of_highways):
-     
-     
-     ## ----- Pick Random Boundry Cell ----- ##
-          random_boundry_number = random.randint(0, (2*rows + 2*columns - 4))
+     while(overlap == True and counter < 2):
+          overlap = False
+          counter += 1
           
-          ## Testing
-          #random_boundry_number = rows+2*columns-4-1-37-18
-          #random_boundry_number = rows+2*columns-4
-          #random_boundry_number = 2*rows + 2*columns - 4 - 19 - 1 - 19 + 5
-          #random_boundry_number = 215
+          highway_map = empty_map[:]
           
-          print(random_boundry_number)
-          for r in range(0, rows):
-               for c in range(0, columns):
-                    if((r == 0 or r == rows - 1) or (c == 0 or c == columns - 1)):
-                         if(random_boundry_number == 1):
-                              random_boundry_row = r
-                              random_boundry_column = c
-                              empty_map[random_boundry_row][random_boundry_column] = 'S'
-                              if(r == 0):              # Started at top wall going in Down Direction
-                                   behind = 1          # Up     
-                                   direction = -behind # Down
-                              elif(r == rows - 1):     # Started at bottom wall going in Up Direction
-                                   behind = -1         # Down
-                                   direction = -behind # Up
-                              elif(c == 0):            # Started on Left wall going in Right Direction
-                                   behind = -2         # Left
-                                   direction = -behind # Right
-                              elif(c == columns - 1):  # Started on right wall going in Left Direction
-                                   behind = 2          # Right
-                                   direction = -behind # Left
-                              print("Behind: ", behind)
-                              print("Direction: ", direction)
-                         random_boundry_number = random_boundry_number - 1
-     ## ----- End Pick Random Boundry Cell ----- ##
-     
-     
-     
-     ## ---- Initial 20 Highway Squares ----- ##
-          if (abs(behind) == 1):
-               if (behind < 0):
-                    # Go Up
-                    for r in range (0, highway_length):
-                         if(empty_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 1):
-                              empty_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'a' 
-                         else:
-                              empty_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'b'
-                              
-                    current_row = random_boundry_row - highway_length + 1
-                    current_column = random_boundry_column
-               else:
-                    # Go Down
-                    for r in range (0, highway_length):
-                         if(empty_map[random_boundry_row + r][random_boundry_column] == 1):
-                              empty_map[random_boundry_row + r][random_boundry_column] = 'a'
-                         else:
-                              empty_map[random_boundry_row + r][random_boundry_column] = 'b' 
-                    current_row = random_boundry_row + highway_length - 1
-                    current_column = random_boundry_column
-          elif (abs(behind) == 2):
-               if (behind < 0):
-                    # Go Right 
-                    for c in range (0, highway_length):
-                         if(empty_map[random_boundry_row][random_boundry_column + c] == 1):
-                              empty_map[random_boundry_row][random_boundry_column + c] = 'a'
-                         else:
-                              empty_map[random_boundry_row][random_boundry_column + c] = 'b' 
-                    current_row = random_boundry_row
-                    current_column = random_boundry_column + highway_length - 1
-               else:
-                    # Go Left
-                    for c in range (0, highway_length):
-                         if(empty_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 1):
-                              empty_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'a'
-                         else:
-                              empty_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'b'
-                    current_row = random_boundry_row
-                    current_column = random_boundry_column - highway_length + 1
-          empty_map[random_boundry_row][random_boundry_column] = 'S' 
-          print("Current Row: ", current_row)
-          print("Current Column: ", current_column)         
-     ## ---- End Initial 20 Highway Squares ----- ##
-     
-     ## ----- Draw Complete Highway Until Boundry is Reached ----- ##
-          #overlap = False
-          border_reached = True
+          '''
+          for i in range(0, rows):
+               for j in range(0, columns):
+                    highway_map[i][j] = empty_map[i][j]
+          '''          
           
-          print("Direction: ", direction)
-          while(border_reached):
-                              
-               temp = random.randint(1,3)
-               #temp = 1
-               print("Temp: ", temp)
-               # if temp = 1 or 2 change directions
-               # if temp = 1 turn right
-               if (temp == 1):
-                    if (direction == 2):    # Right -> Down 
-                         direction = -1
-                         behind = -direction
-                         
-                         for r in range(0, highway_length - 1):
-                              
-                              if(current_row + r + 1 < rows):
-                                   #empty_map[current_row + r + 1][current_column] = 'z'
-                                   if(current_row + r + 2 == rows):
-                                        border_reached = False
-                                   
-                                   if(empty_map[current_row + r + 1][current_column] == 1):
-                                        empty_map[current_row + r + 1][current_column] = 'a'
-                                   else:
-                                        empty_map[current_row + r + 1][current_column] = 'b'
-                                   
-                              else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)
-                         current_row += highway_length - 1
-                              ## Choose direction     
-                              
-                    elif (direction == 1):  # Up -> Right
-                         direction = 2
-                         behind = -direction
-                         
-                         for c in range(0, highway_length - 1):
-                              if(current_column + c + 1 == columns):
-                                        border_reached = False
-                              elif(current_column + c + 1 < columns):
-                                   #empty_map[current_row][current_column + c + 1] = 'b'
-                                   
-                                   if(empty_map[current_row][current_column + c + 1] == 1):
-                                        empty_map[current_row][current_column + c + 1] = 'a'
-                                   else:
-                                        empty_map[current_row][current_column + c + 1] = 'b'
-                                   
-                                   
-                              else:
-                                   border_reached = False   
-                         
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)  
-                         current_column += highway_length - 1
-                              
-                    elif (direction == -2):   # Left -> Up
-                         direction = 1
-                         behind = -direction
-                         
-                         for r in range(0, highway_length - 1):
-                              if(current_row - highway_length + r + 1 >= 0):
-                                   #empty_map[current_row - highway_length + r + 1][current_column] = 'c'
-                                   
-                                   if(empty_map[current_row - highway_length + r + 1][current_column] == 1):
-                                        empty_map[current_row - highway_length + r + 1][current_column] = 'a'
-                                   else:
-                                        empty_map[current_row - highway_length + r + 1][current_column] = 'b'
-                                   
-                                   if(current_row - highway_length + r + 1 == 0):
-                                        border_reached = False
-                              else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)
-                         current_row -= highway_length - 1
-                              
-                    else:# direction = -1    # Down -> Left
-                         direction = -2
-                         behind = -direction
-                         
-                         for c in range(0, highway_length - 1):
-                              if(current_column - highway_length + c + 1 >= 0):
-                                   #empty_map[current_row][current_column - highway_length + c + 1] = 'd'
-                                   
-                                   if(empty_map[current_row][current_column - highway_length + c + 1] == 1):
-                                        empty_map[current_row][current_column - highway_length + c + 1] = 'a'
-                                   else:
-                                        empty_map[current_row][current_column - highway_length + c + 1] = 'b'
-                                   
-                                   if(current_column - highway_length + c + 1 == 0):
-                                        border_reached = False
-                              else:
-                                   border_reached = False
-                                   
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)
-                         current_column -= highway_length - 1
-                    # draw 19 block
-                    # else (temp = 2) turn left
+          
+          ## ----- Highway Paths Creation ----- ##
+          ## ----- Loop ----- ##
+          number_of_highways = 4
+          highway_length = 20      # change to 20
+          
+          for path in range(0, number_of_highways):
+          
+          
+          ## ----- Pick Random Boundry Cell ----- ##
+               random_boundry_number = random.randint(0, (2*rows + 2*columns - 4))
                
-               elif (temp == 2):
-                    if (direction == 2):    # Right -> Up
-                         direction = 1
-                         behind = -direction
-                         
-                         for r in range(0, highway_length - 1):
-                              if (current_row - highway_length + r + 1 >= 0):
-                                   #empty_map[current_row - highway_length + r + 1][current_column] = 'e'
-                                   
-                                   if(empty_map[current_row - highway_length + r + 1][current_column] == 1):
-                                        empty_map[current_row - highway_length + r + 1][current_column] = 'a'
-                                   else:
-                                        empty_map[current_row - highway_length + r + 1][current_column] = 'b'
-                                   
-                                   if(current_row - highway_length + r + 1 == 0):
-                                        border_reached = False
-                              else:
-                                   border_reached = False
-                                   
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)
-                         current_row -= highway_length - 1
-                                   
-                    elif (direction == 1):  # Up -> Left
-                         direction = -2
-                         behind = -direction
-                         
-                         for c in range(0, highway_length - 1):
-                              if (current_column - highway_length + c + 1 >= 0):
-                                   #empty_map[current_row][current_column - highway_length + c + 1] = 'f'
-                                   
-                                   if(empty_map[current_row][current_column - highway_length + c + 1] == 1):
-                                        empty_map[current_row][current_column - highway_length + c + 1] = 'a'
-                                   else:
-                                        empty_map[current_row][current_column - highway_length + c + 1] = 'b'
-                                   
-                                   if(current_column - highway_length + c == 0):
-                                        border_reached = False
-                              else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)
-                         current_column -= highway_length - 1
-                                   
-                    elif (direction == -2):  # Left -> Down
-                         direction = -1
-                         behind = -direction
-                         
-                         # Index Error
-                         for r in range(0, highway_length - 1):
-                              if (current_row + r + 1 < rows):
-                                   if(current_row + r + 1 == rows - 1):
-                                        border_reached = False
-                                        
-                                   #empty_map[current_row + r + 1][current_column] = 'g'
-                                   
-                                   if(empty_map[current_row + r + 1][current_column] == 1):
-                                        empty_map[current_row + r + 1][current_column] = 'a'
-                                   else:
-                                        empty_map[current_row + r + 1][current_column] = 'b'
-                                   
-                                   #if(current_row + r + 1 == rows):
-                                   #     border_reached = False
-                              else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)
-                         current_row += highway_length - 1
-                                   
-                    else:# direction = -1    # Down -> Right
-                         direction = 2
-                         behind = -direction
-                         
-                         for c in range(0, highway_length - 1):
-                              if (current_column + c + 1 < columns):
-                                   #empty_map[current_row][current_column + c + 1] = 'h'
-                                  
-                                   if(empty_map[current_row][current_column + c + 1] == 1):
-                                        empty_map[current_row][current_column + c + 1] = 'a'
-                                   else:
-                                        empty_map[current_row][current_column + c + 1] = 'b'
-                                   
-                                   if(current_column + c == columns - 1):
-                                        border_reached = False
-                              else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)
-                         #direction = choose_direction(direction)  
-                         current_column += highway_length - 1
-                              
-                    # draw 19 block
+               print(random_boundry_number)
                
-               
-                                        
-               # else (temp = 3) stay the course
-               elif (temp == 3):
-                    # draw 20 block
-                    ## Copied
-                    if (direction == 1):
+               for r in range(0, rows):
+                    for c in range(0, columns):
+                         if((r == 0 or r == rows - 1) or (c == 0 or c == columns - 1)):
+                              if(random_boundry_number == 1):
+                                   random_boundry_row = r
+                                   random_boundry_column = c
+                                   highway_map[random_boundry_row][random_boundry_column] = 'S'
+                                   if(r == 0):              # Started at top wall going in Down Direction
+                                        behind = 1          # Up     
+                                        direction = -behind # Down
+                                   elif(r == rows - 1):     # Started at bottom wall going in Up Direction
+                                        behind = -1         # Down
+                                        direction = -behind # Up
+                                   elif(c == 0):            # Started on Left wall going in Right Direction
+                                        behind = -2         # Left
+                                        direction = -behind # Right
+                                   elif(c == columns - 1):  # Started on right wall going in Left Direction
+                                        behind = 2          # Right
+                                        direction = -behind # Left
+                              random_boundry_number = random_boundry_number - 1
+          ## ----- End Pick Random Boundry Cell ----- ##
+          
+          
+          
+          ## ---- Initial 20 Highway Squares ----- ##
+               if (abs(behind) == 1):
+                    if (behind < 0):
                          # Go Up
                          for r in range (0, highway_length):
-                              if(current_row - highway_length + r >= 0):
-                                   #empty_map[current_row - highway_length + r][current_column] = 'i'
-                                   
-                                   if(empty_map[current_row - highway_length + r][current_column] == 1):
-                                        empty_map[current_row - highway_length + r][current_column] = 'a'
-                                   else:
-                                        empty_map[current_row - highway_length + r][current_column] = 'b'
-                                        
-                                   if(current_row - highway_length + r == 0):
-                                        border_reached = False
+                              if(highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 1):
+                                   highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'a' 
                               else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)
-                         #direction = choose_direction(direction)          
-                         current_row -= highway_length
-                         
-                    elif (direction == -1):
+                                   highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'b'
+                                   
+                         current_row = random_boundry_row - highway_length + 1
+                         current_column = random_boundry_column
+                    else:
                          # Go Down
-                         # Index Error
                          for r in range (0, highway_length):
-                              if(current_row + r + 1 == rows):
-                                   border_reached = False 
-                              elif(current_row + r + 1 < rows):
-                                   #empty_map[current_row + r + 1][current_column] = 'j'
-                                   
-                                   if(empty_map[current_row + r + 1][current_column] == 1):
-                                        empty_map[current_row + r + 1][current_column] = 'a'
-                                   else:
-                                        empty_map[current_row + r + 1][current_column] = 'b'
-                                   
+                              if(highway_map[random_boundry_row + r][random_boundry_column] == 1):
+                                   highway_map[random_boundry_row + r][random_boundry_column] = 'a'
                               else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)          
-                         #direction = choose_direction(direction)          
-                         current_row += highway_length
-                    
-                    elif (direction == 2):          
+                                   highway_map[random_boundry_row + r][random_boundry_column] = 'b' 
+                         current_row = random_boundry_row + highway_length - 1
+                         current_column = random_boundry_column
+               elif (abs(behind) == 2):
+                    if (behind < 0):
                          # Go Right 
                          for c in range (0, highway_length):
-                              if(current_column + c + 1 < columns):
-                                   #empty_map[current_row][current_column + c + 1] = 'k'
-                                   if(current_column + c + 2 == columns):
-                                        border_reached = False
-                                   
-                                   if(empty_map[current_row][current_column + c + 1] == 1):
-                                        empty_map[current_row][current_column + c + 1] = 'a'
-                                   else:
-                                        empty_map[current_row][current_column + c + 1] = 'b' 
-                                   
+                              if(highway_map[random_boundry_row][random_boundry_column + c] == 1):
+                                   highway_map[random_boundry_row][random_boundry_column + c] = 'a'
                               else:
-                                   border_reached = False
-                         
-                         print("Direction: ", direction)
-                         #direction = choose_direction(direction)          
-                         current_column += highway_length
-                         
-                    elif (direction == -2):
+                                   highway_map[random_boundry_row][random_boundry_column + c] = 'b' 
+                         current_row = random_boundry_row
+                         current_column = random_boundry_column + highway_length - 1
+                    else:
                          # Go Left
                          for c in range (0, highway_length):
-                              if(current_column - highway_length + c >= 0):
-                                   #empty_map[current_row][current_column - highway_length + c] = 'l'
-                                   
-                                   if(empty_map[current_row][current_column - highway_length + c] == 1):
-                                        empty_map[current_row][current_column - highway_length + c] = 'a'
-                                   elif(empty_map[current_row][current_column - highway_length + c] == 2):
-                                        empty_map[current_row][current_column - highway_length + c] = 'b'
-                                   
-                                   if(current_column - highway_length + c == 0):
-                                        border_reached = False
+                              if(highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 1):
+                                   highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'a'
                               else:
-                                   border_reached = False
+                                   highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'b'
+                         current_row = random_boundry_row
+                         current_column = random_boundry_column - highway_length + 1
+               highway_map[random_boundry_row][random_boundry_column] = 'S'          
+          ## ---- End Initial 20 Highway Squares ----- ##
+          
+          ## ----- Draw Complete Highway Until Boundry is Reached ----- ##
+               
+               border_reached = True
+     
+               while(border_reached):
+                                   
+                    temp = random.randint(1,5)
+
+                    ## ----- Right Hand Turn ----- ##
+                    if (temp == 1):
+                         ## ----- Going Right Turing Down ----- ##
+                         if (direction == 2):    # Right -> Down 
+                              direction = -1
+                              for r in range(0, highway_length - 1):
+                                   
+                                   if(current_row + r + 1 < rows):
+                                        #empty_map[current_row + r + 1][current_column] = 'z'
+                                        if(current_row + r + 2 == rows):
+                                             border_reached = False
+                                        if(highway_map[current_row + r + 1][current_column] == 'a' or highway_map[current_row + r + 1][current_column] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row + r + 1][current_column] == 1):
+                                             highway_map[current_row + r + 1][current_column] = 'a'
+                                        else:
+                                             highway_map[current_row + r + 1][current_column] = 'b'
+                                        
+                                   else:
+                                        border_reached = False
+                                        
+                              current_row += highway_length - 1    
+                         ## ----- End Going Right Turing Down ----- ##       
                          
-                         print("Direction: ", direction)
-                         #direction = choose_direction(direction)          
-                         current_column -= highway_length
-                    ## End Copied
-               else:
-                    pass
-     ## ----- End Draw Complete Highway Until Boundry is Reached ----- ##
+                         ## ----- Going Up Turing Right ----- ##   
+                         elif (direction == 1):  # Up -> Right
+                              direction = 2
+                              
+                              for c in range(0, highway_length - 1):
+                                   if(current_column + c + 1 == columns):
+                                             border_reached = False
+                                   elif(current_column + c + 1 < columns):
+                                        #empty_map[current_row][current_column + c + 1] = 'b'
+                                        if(highway_map[current_row][current_column + c + 1] == 'a' or highway_map[current_row][current_column + c + 1] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row][current_column + c + 1] == 1):
+                                             highway_map[current_row][current_column + c + 1] = 'a'
+                                        else:
+                                             highway_map[current_row][current_column + c + 1] = 'b'
+                                        
+                                        
+                                   else:
+                                        border_reached = False   
+                               
+                              current_column += highway_length - 1
+                         ## ----- End Going Up Turing Right ----- ## 
+                         
+                         ## ----- Going Left Turing Up ----- ##           
+                         elif (direction == -2):   # Left -> Up
+                              direction = 1
+                              
+                              for r in range(0, highway_length - 1):
+                                   if(current_row - highway_length + r + 1 >= 0):
+                                        #empty_map[current_row - highway_length + r + 1][current_column] = 'c'
+                                        if(highway_map[current_row - highway_length + r + 1][current_column] == 'a' or highway_map[current_row - highway_length + r + 1][current_column] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row - highway_length + r + 1][current_column] == 1):
+                                             highway_map[current_row - highway_length + r + 1][current_column] = 'a'
+                                        else:
+                                             highway_map[current_row - highway_length + r + 1][current_column] = 'b'
+                                        
+                                        if(current_row - highway_length + r + 1 == 0):
+                                             border_reached = False
+                                   else:
+                                        border_reached = False
+     
+                              current_row -= highway_length - 1
+                         ## ----- End Going Left Turing Up ----- ##
+                         
+                         ## ----- Going Down Turing Left ----- ##          
+                         else:# direction = -1    # Down -> Left
+                              direction = -2
+                              
+                              for c in range(0, highway_length - 1):
+                                   if(current_column - highway_length + c + 1 >= 0):
+                                        #empty_map[current_row][current_column - highway_length + c + 1] = 'd'
+                                        if(highway_map[current_row][current_column - highway_length + c + 1] == 'a' or highway_map[current_row][current_column - highway_length + c + 1] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row][current_column - highway_length + c + 1] == 1):
+                                             highway_map[current_row][current_column - highway_length + c + 1] = 'a'
+                                        else:
+                                             highway_map[current_row][current_column - highway_length + c + 1] = 'b'
+                                        
+                                        if(current_column - highway_length + c + 1 == 0):
+                                             border_reached = False
+                                   else:
+                                        border_reached = False
+     
+                              current_column -= highway_length - 1
+                         ## ----- End Going Down Turing Left ----- ##
+                    ## ----- End Right Hand Turn ----- ##
+                    
+                    ## ----- Left Hand Turn ----- ##
+                    elif (temp == 2):
+                         ## ----- Going Right Turing Up ----- ##
+                         if (direction == 2):    # Right -> Up
+                              direction = 1
+                              
+                              for r in range(0, highway_length - 1):
+                                   if (current_row - highway_length + r + 1 >= 0):
+                                        #empty_map[current_row - highway_length + r + 1][current_column] = 'e'
+                                        if(highway_map[current_row - highway_length + r + 1][current_column] == 'a' or highway_map[current_row - highway_length + r + 1][current_column] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row - highway_length + r + 1][current_column] == 1):
+                                             highway_map[current_row - highway_length + r + 1][current_column] = 'a'
+                                        else:
+                                             highway_map[current_row - highway_length + r + 1][current_column] = 'b'
+                                        
+                                        if(current_row - highway_length + r + 1 == 0):
+                                             border_reached = False
+                                   else:
+                                        border_reached = False
+                                        
+                              current_row -= highway_length - 1
+                         ## ----- End Going Right Turing Up ----- ##
+                         
+                         ## ----- Going Up Turing Left ----- ##               
+                         elif (direction == 1):  # Up -> Left
+                              direction = -2
+                              
+                              for c in range(0, highway_length - 1):
+                                   if (current_column - highway_length + c + 1 >= 0):
+                                        #empty_map[current_row][current_column - highway_length + c + 1] = 'f'
+                                        if(highway_map[current_row][current_column - highway_length + c + 1] == 'a' or highway_map[current_row][current_column - highway_length + c + 1] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row][current_column - highway_length + c + 1] == 1):
+                                             highway_map[current_row][current_column - highway_length + c + 1] = 'a'
+                                        else:
+                                             highway_map[current_row][current_column - highway_length + c + 1] = 'b'
+                                        
+                                        if(current_column - highway_length + c == 0):
+                                             border_reached = False
+                                   else:
+                                        border_reached = False
+     
+                              current_column -= highway_length - 1
+                         ## ----- End Going Up Turing Left ----- ##   
+                         
+                         ## ----- Going Left Turing Down ----- ##            
+                         elif (direction == -2):  # Left -> Down
+                              direction = -1
+     
+                              # Index Error
+                              for r in range(0, highway_length - 1):
+                                   if (current_row + r + 1 < rows):
+                                        if(current_row + r + 1 == rows - 1):
+                                             border_reached = False
+                                             
+                                        #empty_map[current_row + r + 1][current_column] = 'g'
+                                        if(highway_map[current_row + r + 1][current_column] == 'a' or highway_map[current_row + r + 1][current_column] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row + r + 1][current_column] == 1):
+                                             highway_map[current_row + r + 1][current_column] = 'a'
+                                        else:
+                                             highway_map[current_row + r + 1][current_column] = 'b'
+     
+                                   else:
+                                        border_reached = False
+     
+                              current_row += highway_length - 1
+                         ## ----- End Going Left Turing Down ----- ## 
+                         
+                         ## ----- Going Down Turing Right ----- ##                
+                         else:# direction = -1    # Down -> Right
+                              direction = 2
+     
+                              for c in range(0, highway_length - 1):
+                                   if (current_column + c + 1 < columns):
+                                        #empty_map[current_row][current_column + c + 1] = 'h'
+                                        if(highway_map[current_row][current_column + c + 1] == 'a' or highway_map[current_row][current_column + c + 1] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row][current_column + c + 1] == 1):
+                                             highway_map[current_row][current_column + c + 1] = 'a'
+                                        else:
+                                             highway_map[current_row][current_column + c + 1] = 'b'
+                                        
+                                        if(current_column + c == columns - 1):
+                                             border_reached = False
+                                   else:
+                                        border_reached = False
+      
+                              current_column += highway_length - 1
+                         ## ----- End Going Down Turing Right ----- ##
+                    ## ----- End Left Hand Turn ----- ##          
+            
+                    ## ----- Continue Straight Ahead ----- ##
+                    else:
+                    #elif (temp >= 3):
+                         ## ----- Continue Up ----- ##
+                         if (direction == 1):
+                              # Go Up
+                              for r in range (0, highway_length):
+                                   if(current_row - highway_length + r >= 0):
+                                        #empty_map[current_row - highway_length + r][current_column] = 'i'
+                                        if(highway_map[current_row - highway_length + r][current_column] == 'a' or highway_map[current_row - highway_length + r][current_column] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row - highway_length + r][current_column] == 1):
+                                             highway_map[current_row - highway_length + r][current_column] = 'a'
+                                        else:
+                                             highway_map[current_row - highway_length + r][current_column] = 'b'
+                                             
+                                        if(current_row - highway_length + r == 0):
+                                             border_reached = False
+                                   else:
+                                        border_reached = False
+            
+                              current_row -= highway_length
+                         ## ----- End Continue Up ----- ## 
+                         
+                         ## ----- Continue Down ----- ##     
+                         elif (direction == -1):
+                              # Go Down
+                              for r in range (0, highway_length):
+                                   if(current_row + r + 1 == rows):
+                                        border_reached = False 
+                                   elif(current_row + r + 1 < rows):
+                                        #empty_map[current_row + r + 1][current_column] = 'j'
+                                        if(highway_map[current_row + r + 1][current_column] == 'a' or highway_map[current_row + r + 1][current_column] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row + r + 1][current_column] == 1):
+                                             highway_map[current_row + r + 1][current_column] = 'a'
+                                        else:
+                                             highway_map[current_row + r + 1][current_column] = 'b'
+                                        
+                                   else:
+                                        border_reached = False
+             
+                              current_row += highway_length
+                         ## ----- End Continue Down ----- ## 
+                         
+                         ## ----- Continue Right ----- ##
+                         elif (direction == 2):          
+                              # Go Right 
+                              for c in range (0, highway_length):
+                                   if(current_column + c + 1 < columns):
+                                        #empty_map[current_row][current_column + c + 1] = 'k'
+                                        if(current_column + c + 2 == columns):
+                                             border_reached = False
+                                        if(highway_map[current_row][current_column + c + 1] == 'a' or highway_map[current_row][current_column + c + 1] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row][current_column + c + 1] == 1):
+                                             highway_map[current_row][current_column + c + 1] = 'a'
+                                        else:
+                                             highway_map[current_row][current_column + c + 1] = 'b' 
+                                        
+                                   else:
+                                        border_reached = False
+             
+                              current_column += highway_length
+                         ## ----- End Continue Right ----- ## 
+                              
+                         ## ----- Continue Left ----- ##     
+                         elif (direction == -2):
+                              # Go Left
+                              for c in range (0, highway_length):
+                                   if(current_column - highway_length + c >= 0):
+                                        #empty_map[current_row][current_column - highway_length + c] = 'l'
+                                        if(highway_map[current_row][current_column - highway_length + c] == 'a' or highway_map[current_row][current_column - highway_length + c] == 'b'):
+                                             overlap = True
+                                        if(highway_map[current_row][current_column - highway_length + c] == 1):
+                                             highway_map[current_row][current_column - highway_length + c] = 'a'
+                                             
+                                             
+                                        ## Make them all like this ##     
+                                        elif(highway_map[current_row][current_column - highway_length + c] == 2):
+                                        ## End ##
+                                             highway_map[current_row][current_column - highway_length + c] = 'b'
+                                        
+                                        if(current_column - highway_length + c == 0):
+                                             border_reached = False
+                                   else:
+                                        border_reached = False
+              
+                              current_column -= highway_length
+                         ## ----- End Continue Left ----- ## 
+                    ## ----- End Continue Straight Ahead ----- ##
+                    
+               print("Overlap: ", overlap)
+          
+          
+          ## ----- Printing Map ----- ##
+          for x in range(0, rows):
+               for y in range(0, columns):
+                    print(empty_map[x][y], end = '')
+               print()
+          ## ----- End Printing Map ----- ##
+          print()
+          ## ----- End Draw Complete Highway Until Boundry is Reached ----- ##
+          
+     ## ----- End Valid Highway Path Creation ----- ##
+     
      
      ## ----- Check Highway Validity  ----- ##
      ## Check Highway length
@@ -464,15 +480,15 @@ def generate_map():
      
      
      
-     
-     
+     #empty_map = highway_map
+     '''
      ## ----- Printing Map ----- ##
      for x in range(0, rows):
           for y in range(0, columns):
-               print(empty_map[x][y], end = '')
+               print(highway_map[x][y], end = '')
           print()
      ## ----- End Printing Map ----- ##
-     
+     '''
      return empty_map
 
 def choose_direction(current_direction):
