@@ -51,6 +51,13 @@ def traverseDIAG(current_cell, new_cell):
           
      pass
 
+def heuristic(current_cell, goal_cell):
+     # Traversing from current (X,Y) coordinates to goal cell (X,Y) coordinates
+          # Calculate the distance, Assuming optomistic
+          # Most optomistic is either .25 or 1
+          
+     pass
+     
 
 def aStar(map_grid,           # 2D grid of dictionaries representing map
           start_node_x,       # Int - Coordinates of start location
@@ -85,6 +92,7 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                # Need to check for invalid (off the map) coordinates or blocked tiles
                # Successors are dictionary data types
           successor_list = []
+          
           successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] + 1])
           successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] + 1])
           successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])
