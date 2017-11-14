@@ -15,8 +15,8 @@ import math
 
 def generate_map():
      
-     rows = 60
-     columns = 80
+     rows = 60      # Change this
+     columns = 80   # Change this
 
      empty_map = [[0 for column in range(columns)] for row in range(rows)]
      
@@ -479,9 +479,9 @@ def generate_map():
                final_map[i][j]['parenty'] = 0
                final_map[i][j]['xcoord'] = i
                final_map[i][j]['ycoord'] = j
-               final_map[i][j]['F'] = 0
-               final_map[i][j]['G'] = 0
-               final_map[i][j]['H'] = 0
+               final_map[i][j]['F'] = 0.0
+               final_map[i][j]['G'] = 0.0
+               final_map[i][j]['H'] = 0.0
                if highway_map[i][j] == 'a' or highway_map[i][j] == 'b':
                     final_map[i][j]['highway'] = 1
                else: final_map[i][j]['highway'] = 0
