@@ -48,17 +48,17 @@ columns = 80   # Change to 160
 def traverseNSEW(current_cell, new_cell):
      # Traversing N, S, E, or W has a default cost of 1
           # Needs to check type of cell to modify cost
-     if(current_cell['hardeded'] == 1):
+     if(current_cell['hardened'] == 1):
           current_cost = 2.0
      else:
           current_cost = 1.0
                
-     if(new_cell['hardeded'] == 1):
+     if(new_cell['hardened'] == 1):
           new_cost = 2.0
      else:
           new_cost = 1.0
           
-     if(current_cell['Highway'] == 1 and new_cell['Highway'] == 1):
+     if(current_cell['highway'] == 1 and new_cell['highway'] == 1):
           cost = .25*.5*(current_cost + new_cost)
      else:
           cost = .5*(current_cost + new_cost)
@@ -68,12 +68,12 @@ def traverseNSEW(current_cell, new_cell):
 def traverseDIAG(current_cell, new_cell):
      # Traversing NE, NW, SE, SW has a default cost of root(2)
           # Needs to check type of cell to modify cost
-     if(current_cell['hardeded'] == 1):
+     if(current_cell['hardened'] == 1):
           current_cost = math.sqrt(8)
      else:
           current_cost = math.sqrt(2)
                
-     if(new_cell['hardeded'] == 1):
+     if(new_cell['hardened'] == 1):
           new_cost = math.sqrt(8)
      else:
           new_cost = math.sqrt(2)
@@ -117,6 +117,7 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
      
      # While there are elements in the open list
      while open_list:
+                    
           # Find the node with the lowest F on the open list (Becomes Q)
           index = 0
           for count in range(len(open_list)):
@@ -124,7 +125,10 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                     index = count
           
           # Pop Q off the open list
-          Q = open_list.pop(index)
+          Q = open_list[index]
+          
+          # Push Q onto the closed list
+          closed_list.append(Q)
           
           
           # Generate Q's 8 successors and set their parents to Q
@@ -141,7 +145,7 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                elif(Q['xcoord'] - 1 > 0):
                     successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1])     # NW
           # Check South
-          elif(Q['ycoord'] + 1 < rows):
+          if(Q['ycoord'] + 1 < rows):
                successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] + 1])              # S
                # Check Southeast
                if(Q['xcoord'] + 1 < columns):
@@ -150,54 +154,80 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                elif(Q['xcoord'] - 1 > 0):
                     successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1])     # SW
           # Check West
-          elif(Q['xcoord'] - 1 >= 0):
+          if(Q['xcoord'] - 1 >= 0):
                successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord']])              # W
           
           # Check East
-          elif(Q['xcoord'] + 1 < columns):
+          if(Q['xcoord'] + 1 < columns):
                successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])              # E
           
           
-          
-          
+                   
           
           for successor in successor_list:
                # If successor is the goal, stop the search
                if successor['xcoord'] == goal_node_x and successor['ycoord'] == goal_node_y:
-                    pass
+                    print('path found')
                
-               # Calculate G, H, F of each successor
+
+               # Skip blocked cells
+               if successor['blocked'] == 1:
+                    continue
                
-               # Check cell type: Hardened, Highway, Blocked
                
-               # Options
-               # not Hardened and not Highway
-               # not Hardened and Highway
-               # Hardened and not Highway
-               # Hardened and Highway
-               # Blocked
+               # Calculate G
+               if Q['xcoord'] != successor['xcoord'] and Q['ycoord'] != successor['ycoord']: # Diagonal Traversal
+                    successor['G'] = traverseDIAG(Q, successor)
+               else:
+                    successor['G'] = traverseNSEW(Q, successor)
+                    
+                    
+               # Calculate H
+               successor['H'] = heuristic(successor, map_grid[goal_node_x][goal_node_y])
                
+               
+               # Calculate F
+               successor['F'] = successor['H'] + successor['G']
+               
+               print(successor['F'])
+
                
                # If a node with the same position as successor is in the OPEN List
                # which has a lower F than successor, skip this successor
                
                for i in range(len(open_list)):
+                                        
                     if open_list[i]['xcoord'] == successor['xcoord'] and open_list[i]['ycoord'] == successor['ycoord']:
-                         
-                         
-                         # Skip this successor
-                         pass
-                    pass
+                         if successor['F'] > open_list[i]['F']:
+                              continue
+
                
                # If a node with the same position as successor is in the CLOSED
                # list which has a lower F than successor, skip this successor, 
                # otherwise, add this node to the open list.
-               pass
+               
+               for i in range(len(closed_list)):
+                    
+                    print("c5 reached")
+                    
+                    if closed_list[i]['xcoord'] == successor['xcoord'] and closed_list[i]['ycoord'] == successor['ycoord']:
+                         if successor['F'] > open_list[i]['F']:
+                              continue
+                         else:
+                              print("thing added")
+                              open_list.append(successor)
+                    else:
+                         print("thing added")
+                         open_list.append(successor)
           
-          # Push Q onto the closed list
-          closed_list.append(Q)
-     
-     pass
-     
+          # Pop Q off the open list
+          Q = open_list.pop(index)
+          
+
+# ----- Unit Test ----- #
+
+x = generate_map()
+
+aStar(x, 0, 0, 59, 79)     
 
 

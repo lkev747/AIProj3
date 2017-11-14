@@ -82,7 +82,7 @@ def generate_map():
                               if(random_boundry_number == 1):
                                    random_boundry_row = r
                                    random_boundry_column = c
-                                   highway_map[random_boundry_row][random_boundry_column] = 'S'
+                                   #highway_map[random_boundry_row][random_boundry_column] = 'S'
                                    if(r == 0):              # Started at top wall going in Down Direction
                                         behind = 1          # Up     
                                         direction = -behind # Down
@@ -435,17 +435,18 @@ def generate_map():
                          ## ----- End Continue Left ----- ## 
                     ## ----- End Continue Straight Ahead ----- ##
                     
-               print("Overlap: ", overlap)
-          #highway_map = list(empty_map)
+               #print("Overlap: ", overlap)
           
           ## ----- Printing Map ----- ##
           print("Counter: ", counter)
+          '''
           for x in range(0, rows):
                for y in range(0, columns):
                     print(highway_map[x][y], end = '')
                print()
           ## ----- End Printing Map ----- ##
           print()
+          '''
           ## ----- End Draw Complete Highway Until Boundry is Reached ----- ##
           
      ## ----- End Valid Highway Path Creation ----- ##
@@ -493,14 +494,14 @@ def generate_map():
                else: final_map[i][j]['blocked'] = 0
      ## ----- Final Map ----- ##
      
-     '''
+     
      ## ----- Printing Map ----- ##
      for x in range(0, rows):
           for y in range(0, columns):
                print(highway_map[x][y], end = '')
           print()
      ## ----- End Printing Map ----- ##
-     '''
+     
      return final_map
 
 def choose_direction(current_direction):
@@ -521,9 +522,9 @@ def check_edge(xValue, yValue, rows, columns):
 
 ## ----- Unit Test ----- ##
 
-
+'''
 x = generate_map()
-
+'''
 ## ----- ----- ##
      
 ## ----- End ----- ##
