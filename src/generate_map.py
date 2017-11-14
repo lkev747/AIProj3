@@ -32,8 +32,6 @@ def generate_map():
      for cell in range(0, number_of_random_cells):
           randx = random.randint(0, rows - 1)
           randy = random.randint(0, columns - 1)
-          #print("Random X: ", randx)
-          #print("Random Y: ", randy)
           
           ## ----- Change Hardened Area ----- ##
           area = 31                               ## This should be 31
@@ -42,13 +40,12 @@ def generate_map():
                for c in range(0, area):
                     if(((randx - mid + r) > 0 and (randx - mid + r) < rows) and ((randy - mid + c) > 0 and (randy - mid + c) < columns)):
                          temp_hardened = random.randint(1, 2)
-                         #print("Temp Number: ", temp_hardened)
                          if(temp_hardened == 2):
                               empty_map[randx - mid + r][randy - mid + c] = 2
           ## ----- End Change Hardened Area ----- ##
           
           ## ----- Center of Hardened Area ----- ##
-          #empty_map[randx][randy] = 3
+          # empty_map[randx][randy] = 3
           ## ----- End Center of Hardened Area ----- ##
           
      ## ----- End Harder to Traverse Cells ----- ##
@@ -56,23 +53,16 @@ def generate_map():
      ## ----- Valid Highway Path Creation ----- ##
      overlap = True
      counter = 0
-     #highway_map = empty_map[:]
-     #highway_map = list(empty_map)
      highway_map = [[0 for column in range(columns)] for row in range(rows)]
      
      while(overlap == True):
           overlap = False
           counter += 1
           
-          #highway_map = list(empty_map)
-          
-          
           for i in range(0, rows):
                for j in range(0, columns):
                     highway_map[i][j] = empty_map[i][j]
-                   
-          
-          
+
           ## ----- Highway Paths Creation ----- ##
           ## ----- Loop ----- ##
           number_of_highways = 4
@@ -84,7 +74,7 @@ def generate_map():
           ## ----- Pick Random Boundry Cell ----- ##
                random_boundry_number = random.randint(0, (2*rows + 2*columns - 4))
                
-               print(random_boundry_number)
+               #print(random_boundry_number)
                
                for r in range(0, rows):
                     for c in range(0, columns):
@@ -310,8 +300,7 @@ def generate_map():
                          ## ----- Going Left Turing Down ----- ##            
                          elif (direction == -2):  # Left -> Down
                               direction = -1
-     
-                              # Index Error
+
                               for r in range(0, highway_length - 1):
                                    if (current_row + r + 1 < rows):
                                         if(current_row + r + 1 == rows - 1):
@@ -469,28 +458,41 @@ def generate_map():
      ## ----- End Check Highway Validity ----- ##
      
      ## ----- Create Blocked Cells ----- ##
-     '''
+     
      for r in range(0, rows):
           for c in range(0, columns):
                temp = random.randint(1,5)
-               if(temp == 1 and (empty_map[r][c] != 'a' or empty_map[r][c] != 'b')):                    
-                    empty_map[r][c] = 0
-     '''
+               if(temp == 1 and (highway_map[r][c] != 'a' or highway_map[r][c] != 'b')):                    
+                    highway_map[r][c] = 0
+     
      ## ----- End Create Blocked Cells ----- ##
      
      ## ----- End Loop ----- ##
      ## ----- End Highway Path Creation ----- ##
      
+     ## ----- Final Map ----- ##
+     final_map = [[{} for column in range(columns)] for row in range(rows)]
      
+     for i in range(0, rows):
+          for j in range(0, columns):
+               final_map[i][j]['parentx'] = 0
+               final_map[i][j]['parenty'] = 0
+               final_map[i][j]['xcoord'] = i
+               final_map[i][j]['ycoord'] = j
+               final_map[i][j]['F'] = 0
+               final_map[i][j]['G'] = 0
+               final_map[i][j]['H'] = 0
+               if highway_map[i][j] == 'a' or highway_map[i][j] == 'b':
+                    final_map[i][j]['highway'] = 1
+               else: final_map[i][j]['highway'] = 0
+               if highway_map[i][j] == 2:
+                    final_map[i][j]['hardened'] = 1
+               else: final_map[i][j]['hardened'] = 0
+               if highway_map[i][j] == 0:
+                    final_map[i][j]['blocked'] = 1
+               else: final_map[i][j]['blocked'] = 0
+     ## ----- Final Map ----- ##
      
-     
-     
-     
-     
-     
-     
-     
-     #empty_map = highway_map
      '''
      ## ----- Printing Map ----- ##
      for x in range(0, rows):
@@ -499,7 +501,7 @@ def generate_map():
           print()
      ## ----- End Printing Map ----- ##
      '''
-     return empty_map
+     return final_map
 
 def choose_direction(current_direction):
      direction = random.randint(-2,2)
