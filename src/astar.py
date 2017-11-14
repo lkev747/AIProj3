@@ -31,6 +31,7 @@ Created on Nov 13, 2017
      # 5). Is Cell a Highway?
      # 6). Is Cell a Difficult Terrain?
      # 7). Is Cell Impassable?
+     # 8). Cell Coordinates
      
 
 # --- Other Notes --- # 
@@ -51,8 +52,77 @@ def traverseDIAG(current_cell, new_cell):
      pass
 
 
-def astar(map_grid, start_node):
+def aStar(map_grid,           # 2D grid of dictionaries representing map
+          start_node_x,       # Int - Coordinates of start location
+          start_node_y,
+          goal_node_x,        # Int - Coordinates of end location
+          goal_node_y
+          ):
      
+     # Initialize the open and closed lists
+          # Both lists will contain dictionaries from the map, a grid cell.
+     open_list= []
+     closed_list = []
+
+     
+     # Place the starting node in the open list
+     open_list.append(map_grid[start_node_x][start_node_y]) 
+     
+     
+     # While there are elements in the open list
+     while open_list:
+          # Find the node with the lowest F on the open list (Becomes Q)
+          index = 0
+          for count in range(len(open_list)):
+               if open_list[count]['F'] < open_list[index]['F']:
+                    index = count
+          
+          # Pop Q off the open list
+          Q = open_list.pop(index)
+          
+          
+          # Generate Q's 8 successors and set their parents to Q
+               # Need to check for invalid (off the map) coordinates or blocked tiles
+               # Successors are dictionary data types
+          successor_list = []
+          successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] + 1])
+          successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] + 1])
+          successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])
+          successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] - 1])
+          successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] - 1])
+          successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] - 1])
+          successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord']])
+          successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1])
+          
+          
+          
+          
+          for successor in successor_list:
+               # If successor is the goal, stop the search
+               if successor['xcoord'] == goal_node_x and successor['ycoord'] == goal_node_y:
+                    pass
+               
+               # Calculate G, H, F of each successor
+               
+               
+               # If a node with the same position as successor is in the OPEN List
+               # which has a lower F than successor, skip this successor
+               
+               for i in range(len(open_list)):
+                    if open_list[i]['xcoord'] == successor['xcoord'] and open_list[i]['ycoord'] == successor['ycoord']:
+                         
+                         
+                         # Skip this successor
+                         pass
+                    pass
+               
+               # If a node with the same position as successor is in the CLOSED
+               # list which has a lower F than successor, skip this successor, 
+               # otherwise, add this node to the open list.
+               pass
+          
+          # Push Q onto the closed list
+          closed_list.append(Q)
      
      pass
      
