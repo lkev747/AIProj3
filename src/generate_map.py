@@ -56,20 +56,21 @@ def generate_map():
      ## ----- Valid Highway Path Creation ----- ##
      overlap = True
      counter = 0
-     #highway_map = empty_map
-     highway_map = empty_map[:]
+     #highway_map = empty_map[:]
+     #highway_map = list(empty_map)
+     highway_map = [[0 for column in range(columns)] for row in range(rows)]
      
-     while(overlap == True and counter < 2):
+     while(overlap == True):
           overlap = False
           counter += 1
           
-          highway_map = empty_map[:]
+          #highway_map = list(empty_map)
           
-          '''
+          
           for i in range(0, rows):
                for j in range(0, columns):
                     highway_map[i][j] = empty_map[i][j]
-          '''          
+                   
           
           
           ## ----- Highway Paths Creation ----- ##
@@ -114,9 +115,11 @@ def generate_map():
                     if (behind < 0):
                          # Go Up
                          for r in range (0, highway_length):
+                              if(highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 'a' or highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 'b'):
+                                   overlap = True
                               if(highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 1):
                                    highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'a' 
-                              else:
+                              elif(highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 2):
                                    highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'b'
                                    
                          current_row = random_boundry_row - highway_length + 1
@@ -124,9 +127,11 @@ def generate_map():
                     else:
                          # Go Down
                          for r in range (0, highway_length):
+                              if(highway_map[random_boundry_row + r][random_boundry_column] == 'a' or highway_map[random_boundry_row + r][random_boundry_column] == 'b'):
+                                   overlap = True
                               if(highway_map[random_boundry_row + r][random_boundry_column] == 1):
                                    highway_map[random_boundry_row + r][random_boundry_column] = 'a'
-                              else:
+                              elif(highway_map[random_boundry_row + r][random_boundry_column] == 2):
                                    highway_map[random_boundry_row + r][random_boundry_column] = 'b' 
                          current_row = random_boundry_row + highway_length - 1
                          current_column = random_boundry_column
@@ -134,18 +139,22 @@ def generate_map():
                     if (behind < 0):
                          # Go Right 
                          for c in range (0, highway_length):
+                              if(highway_map[random_boundry_row][random_boundry_column + c] == 'a' or highway_map[random_boundry_row][random_boundry_column + c] == 'b'):
+                                   overlap = True
                               if(highway_map[random_boundry_row][random_boundry_column + c] == 1):
                                    highway_map[random_boundry_row][random_boundry_column + c] = 'a'
-                              else:
+                              elif(highway_map[random_boundry_row][random_boundry_column + c] == 2):
                                    highway_map[random_boundry_row][random_boundry_column + c] = 'b' 
                          current_row = random_boundry_row
                          current_column = random_boundry_column + highway_length - 1
                     else:
                          # Go Left
                          for c in range (0, highway_length):
+                              if(highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 'a' or highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 'b'):
+                                   overlap = True
                               if(highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 1):
                                    highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'a'
-                              else:
+                              elif(highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 2):
                                    highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'b'
                          current_row = random_boundry_row
                          current_column = random_boundry_column - highway_length + 1
@@ -175,7 +184,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row + r + 1][current_column] == 1):
                                              highway_map[current_row + r + 1][current_column] = 'a'
-                                        else:
+                                        elif(highway_map[current_row + r + 1][current_column] == 2):
                                              highway_map[current_row + r + 1][current_column] = 'b'
                                         
                                    else:
@@ -197,7 +206,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row][current_column + c + 1] == 1):
                                              highway_map[current_row][current_column + c + 1] = 'a'
-                                        else:
+                                        elif(highway_map[current_row][current_column + c + 1] == 2):
                                              highway_map[current_row][current_column + c + 1] = 'b'
                                         
                                         
@@ -218,7 +227,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row - highway_length + r + 1][current_column] == 1):
                                              highway_map[current_row - highway_length + r + 1][current_column] = 'a'
-                                        else:
+                                        elif(highway_map[current_row - highway_length + r + 1][current_column] == 2):
                                              highway_map[current_row - highway_length + r + 1][current_column] = 'b'
                                         
                                         if(current_row - highway_length + r + 1 == 0):
@@ -240,7 +249,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row][current_column - highway_length + c + 1] == 1):
                                              highway_map[current_row][current_column - highway_length + c + 1] = 'a'
-                                        else:
+                                        elif(highway_map[current_row][current_column - highway_length + c + 1] == 2):
                                              highway_map[current_row][current_column - highway_length + c + 1] = 'b'
                                         
                                         if(current_column - highway_length + c + 1 == 0):
@@ -265,7 +274,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row - highway_length + r + 1][current_column] == 1):
                                              highway_map[current_row - highway_length + r + 1][current_column] = 'a'
-                                        else:
+                                        elif(highway_map[current_row - highway_length + r + 1][current_column] == 2):
                                              highway_map[current_row - highway_length + r + 1][current_column] = 'b'
                                         
                                         if(current_row - highway_length + r + 1 == 0):
@@ -287,7 +296,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row][current_column - highway_length + c + 1] == 1):
                                              highway_map[current_row][current_column - highway_length + c + 1] = 'a'
-                                        else:
+                                        elif(highway_map[current_row][current_column - highway_length + c + 1] == 2):
                                              highway_map[current_row][current_column - highway_length + c + 1] = 'b'
                                         
                                         if(current_column - highway_length + c == 0):
@@ -313,7 +322,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row + r + 1][current_column] == 1):
                                              highway_map[current_row + r + 1][current_column] = 'a'
-                                        else:
+                                        elif(highway_map[current_row + r + 1][current_column] == 2):
                                              highway_map[current_row + r + 1][current_column] = 'b'
      
                                    else:
@@ -333,7 +342,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row][current_column + c + 1] == 1):
                                              highway_map[current_row][current_column + c + 1] = 'a'
-                                        else:
+                                        elif(highway_map[current_row][current_column + c + 1] == 2):
                                              highway_map[current_row][current_column + c + 1] = 'b'
                                         
                                         if(current_column + c == columns - 1):
@@ -358,7 +367,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row - highway_length + r][current_column] == 1):
                                              highway_map[current_row - highway_length + r][current_column] = 'a'
-                                        else:
+                                        elif(highway_map[current_row - highway_length + r][current_column] == 2):
                                              highway_map[current_row - highway_length + r][current_column] = 'b'
                                              
                                         if(current_row - highway_length + r == 0):
@@ -381,7 +390,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row + r + 1][current_column] == 1):
                                              highway_map[current_row + r + 1][current_column] = 'a'
-                                        else:
+                                        elif(highway_map[current_row + r + 1][current_column] == 2):
                                              highway_map[current_row + r + 1][current_column] = 'b'
                                         
                                    else:
@@ -402,7 +411,7 @@ def generate_map():
                                              overlap = True
                                         if(highway_map[current_row][current_column + c + 1] == 1):
                                              highway_map[current_row][current_column + c + 1] = 'a'
-                                        else:
+                                        elif(highway_map[current_row][current_column + c + 1] == 2):
                                              highway_map[current_row][current_column + c + 1] = 'b' 
                                         
                                    else:
@@ -438,12 +447,13 @@ def generate_map():
                     ## ----- End Continue Straight Ahead ----- ##
                     
                print("Overlap: ", overlap)
-          
+          #highway_map = list(empty_map)
           
           ## ----- Printing Map ----- ##
+          print("Counter: ", counter)
           for x in range(0, rows):
                for y in range(0, columns):
-                    print(empty_map[x][y], end = '')
+                    print(highway_map[x][y], end = '')
                print()
           ## ----- End Printing Map ----- ##
           print()
