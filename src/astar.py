@@ -144,22 +144,22 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                # Successors are dictionary data types
           successor_list = []
           # Check North
-          if(Q['ycoord'] - 1 >= 0):
+          if(Q['ycoord'] - 1 >= 0): # Validate Cell
                successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] - 1])              # N
                # Check Northeast
                if(Q['xcoord'] + 1 < columns):
-                    successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] + 1])     # NE
+                    successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] - 1])     # NE
                # Check Northwest
-               elif(Q['xcoord'] - 1 > 0):
-                    successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1])     # NW
+               if(Q['xcoord'] - 1 >= 0):
+                    successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] - 1])     # NW
           # Check South
-          if(Q['ycoord'] + 1 < rows):
+          if(Q['ycoord'] + 1 < rows): # Validate Cell
                successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] + 1])              # S
                # Check Southeast
                if(Q['xcoord'] + 1 < columns):
                     successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] + 1])     # SE
                # Check Southwest
-               elif(Q['xcoord'] - 1 > 0):
+               if(Q['xcoord'] - 1 >= 0):
                     successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1])     # SW
           # Check West
           if(Q['xcoord'] - 1 >= 0):
@@ -212,32 +212,39 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                for i in range(len(open_list)):
                                         
                     if open_list[i]['xcoord'] == successor['xcoord'] and open_list[i]['ycoord'] == successor['ycoord']:
-                         if successor['F'] > open_list[i]['F']:
-                              f0 = True # Item is found on the list and should be skipped
+                         print("Found duplicate cell on Open List")
+                         
+                         if successor['F'] >= open_list[i]['F']:  # Item is found on the list and should be skipped    
+                              f0 = True 
                               print("Thing Skipped: ", successor['F'],  " > ", open_list[i]['F'])
                               break
-
+                         
+                    # If the item is on the open list and is a better candidate, should we pop the old entry off the open list
+                    # before adding this new one?
+                         
                
                # If a node with the same position as successor is in the CLOSED
                # list which has a lower F than successor, skip this successor, 
                # otherwise, add this node to the open list.
                
                f1 = False # Flag that denotes if item is in the list, defaulted to NOT ON LIST
-               for i in range(len(closed_list)):
-                    
+               for i in range(len(closed_list)):                    
                     # Only consider this successor if f0 is False
                     if closed_list[i]['xcoord'] == successor['xcoord'] and closed_list[i]['ycoord'] == successor['ycoord'] and f0 == False:
+                         
+                         print("Found Duplicate Cell on Closed List")
+
                          f1 = True
-                         if successor['F'] > open_list[i]['F']:
-                              print("Thing Not Added: ", successor['F'], " > ", open_list[i]['F'])
+                         if successor['F'] >= closed_list[i]['F']:
+                              print("Thing Not Added: ", successor['F'], " > ", closed_list[i]['F'])
                          else:
-                              print("Thing Added: ", successor['F'], " < ", open_list[i]['F'])
+                              print("Thing Added: ", successor['F'], " < ", closed_list[i]['F'])
                               open_list.append(successor)
                     if f1 == True:
                          break
                     
                if f1 == False and f0 == False and len(closed_list) != 0:    
-                    print("Thing Added: Not on Closed List")
+                    print("Thing Added: Not on Open or Closed List")
                     open_list.append(successor)
                     
                if len(closed_list) == 0 and f0 == False:
