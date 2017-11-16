@@ -511,9 +511,9 @@ def check_edge(xValue, yValue, rows, columns):
      
 ## ----- Unit Test ----- ##
 
-
+'''
 x = generate_map(120, 160)
-
+'''
 ## ----- ----- ##
      
 ## ----- End ----- ##
