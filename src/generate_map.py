@@ -55,11 +55,12 @@ def generate_map():
      counter = 0
      highway_length = 20      # change to 20
      number_of_highways = 4
+     #highway_long_enough = True
      
      highway_map = [[0 for column in range(columns)] for row in range(rows)]
      
      while(overlap == True):
-          
+          #highway_long_enough = False
           highway_size = [0 for path in range(number_of_highways)]
           
           overlap = False
@@ -457,6 +458,14 @@ def generate_map():
                     ## ----- End Continue Straight Ahead ----- ##
                     
                #print("Overlap: ", overlap)
+          
+          ## ----- Check Highway Length ----- ##
+          '''
+          if(highway_size[0] >= 100 and highway_size[1] >= 100 and highway_size[2] >= 100 and highway_size[3] >= 100 ):
+               print("All bigger than 100")
+               highway_long_enough = True
+          '''
+          ## ----- End Check Highway Length ----- ##
           
           ## ----- Printing Map ----- ##
           for path in highway_size:
