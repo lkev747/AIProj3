@@ -53,9 +53,15 @@ def generate_map():
      ## ----- Valid Highway Path Creation ----- ##
      overlap = True
      counter = 0
+     highway_length = 20      # change to 20
+     number_of_highways = 4
+     
      highway_map = [[0 for column in range(columns)] for row in range(rows)]
      
      while(overlap == True):
+          
+          highway_size = [0 for path in range(number_of_highways)]
+          
           overlap = False
           counter += 1
           
@@ -65,11 +71,8 @@ def generate_map():
 
           ## ----- Highway Paths Creation ----- ##
           ## ----- Loop ----- ##
-          number_of_highways = 4
-          highway_length = 20      # change to 20
           
           for path in range(0, number_of_highways):
-          
           
           ## ----- Pick Random Boundry Cell ----- ##
                random_boundry_number = random.randint(0, (2*rows + 2*columns - 4))
@@ -111,7 +114,8 @@ def generate_map():
                                    highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'a' 
                               elif(highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] == 2):
                                    highway_map[random_boundry_row - highway_length + 1 + r][random_boundry_column] = 'b'
-                                   
+                         
+                         highway_size[path] += 20          
                          current_row = random_boundry_row - highway_length + 1
                          current_column = random_boundry_column
                     else:
@@ -123,6 +127,8 @@ def generate_map():
                                    highway_map[random_boundry_row + r][random_boundry_column] = 'a'
                               elif(highway_map[random_boundry_row + r][random_boundry_column] == 2):
                                    highway_map[random_boundry_row + r][random_boundry_column] = 'b' 
+                         
+                         highway_size[path] += 20 
                          current_row = random_boundry_row + highway_length - 1
                          current_column = random_boundry_column
                elif (abs(behind) == 2):
@@ -134,7 +140,9 @@ def generate_map():
                               if(highway_map[random_boundry_row][random_boundry_column + c] == 1):
                                    highway_map[random_boundry_row][random_boundry_column + c] = 'a'
                               elif(highway_map[random_boundry_row][random_boundry_column + c] == 2):
-                                   highway_map[random_boundry_row][random_boundry_column + c] = 'b' 
+                                   highway_map[random_boundry_row][random_boundry_column + c] = 'b'
+                                   
+                         highway_size[path] += 20  
                          current_row = random_boundry_row
                          current_column = random_boundry_column + highway_length - 1
                     else:
@@ -146,9 +154,11 @@ def generate_map():
                                    highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'a'
                               elif(highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] == 2):
                                    highway_map[random_boundry_row][random_boundry_column - highway_length + 1 + c] = 'b'
+                         
+                         highway_size[path] += 20 
                          current_row = random_boundry_row
                          current_column = random_boundry_column - highway_length + 1
-               highway_map[random_boundry_row][random_boundry_column] = 'S'          
+               #highway_map[random_boundry_row][random_boundry_column] = 'S'          
           ## ---- End Initial 20 Highway Squares ----- ##
           
           ## ----- Draw Complete Highway Until Boundry is Reached ----- ##
@@ -179,7 +189,8 @@ def generate_map():
                                         
                                    else:
                                         border_reached = False
-                                        
+                              
+                              highway_size[path] += 19          
                               current_row += highway_length - 1    
                          ## ----- End Going Right Turing Down ----- ##       
                          
@@ -202,7 +213,7 @@ def generate_map():
                                         
                                    else:
                                         border_reached = False   
-                               
+                              highway_size[path] += 19 
                               current_column += highway_length - 1
                          ## ----- End Going Up Turing Right ----- ## 
                          
@@ -224,7 +235,8 @@ def generate_map():
                                              border_reached = False
                                    else:
                                         border_reached = False
-     
+                              
+                              highway_size[path] += 19
                               current_row -= highway_length - 1
                          ## ----- End Going Left Turing Up ----- ##
                          
@@ -247,6 +259,7 @@ def generate_map():
                                    else:
                                         border_reached = False
      
+                              highway_size[path] += 19
                               current_column -= highway_length - 1
                          ## ----- End Going Down Turing Left ----- ##
                     ## ----- End Right Hand Turn ----- ##
@@ -271,7 +284,8 @@ def generate_map():
                                              border_reached = False
                                    else:
                                         border_reached = False
-                                        
+                              
+                              highway_size[path] += 19          
                               current_row -= highway_length - 1
                          ## ----- End Going Right Turing Up ----- ##
                          
@@ -294,6 +308,7 @@ def generate_map():
                                    else:
                                         border_reached = False
      
+                              highway_size[path] += 19
                               current_column -= highway_length - 1
                          ## ----- End Going Up Turing Left ----- ##   
                          
@@ -317,6 +332,7 @@ def generate_map():
                                    else:
                                         border_reached = False
      
+                              highway_size[path] += 19
                               current_row += highway_length - 1
                          ## ----- End Going Left Turing Down ----- ## 
                          
@@ -339,6 +355,7 @@ def generate_map():
                                    else:
                                         border_reached = False
       
+                              highway_size[path] += 19
                               current_column += highway_length - 1
                          ## ----- End Going Down Turing Right ----- ##
                     ## ----- End Left Hand Turn ----- ##          
@@ -363,7 +380,8 @@ def generate_map():
                                              border_reached = False
                                    else:
                                         border_reached = False
-            
+                              
+                              highway_size[path] += 20
                               current_row -= highway_length
                          ## ----- End Continue Up ----- ## 
                          
@@ -385,6 +403,7 @@ def generate_map():
                                    else:
                                         border_reached = False
              
+                              highway_size[path] += 20
                               current_row += highway_length
                          ## ----- End Continue Down ----- ## 
                          
@@ -406,6 +425,7 @@ def generate_map():
                                    else:
                                         border_reached = False
              
+                              highway_size[path] += 20
                               current_column += highway_length
                          ## ----- End Continue Right ----- ## 
                               
@@ -431,6 +451,7 @@ def generate_map():
                                    else:
                                         border_reached = False
               
+                              highway_size[path] += 20
                               current_column -= highway_length
                          ## ----- End Continue Left ----- ## 
                     ## ----- End Continue Straight Ahead ----- ##
@@ -438,6 +459,9 @@ def generate_map():
                #print("Overlap: ", overlap)
           
           ## ----- Printing Map ----- ##
+          for path in highway_size:
+               print(path, " ")
+          
           print("Counter: ", counter)
           '''
           for x in range(0, rows):
@@ -463,7 +487,7 @@ def generate_map():
      for r in range(0, rows):
           for c in range(0, columns):
                temp = random.randint(1,5)
-               if(temp == 1 and (highway_map[r][c] != 'a' or highway_map[r][c] != 'b')):                    
+               if(temp == 1 and highway_map[r][c] != 'a' and highway_map[r][c] != 'b'):                    
                     highway_map[r][c] = 0
      
      ## ----- End Create Blocked Cells ----- ##
@@ -496,6 +520,7 @@ def generate_map():
      
      
      ## ----- Printing Map ----- ##
+     
      for x in range(0, rows):
           for y in range(0, columns):
                print(highway_map[x][y], end = '')
@@ -522,9 +547,9 @@ def check_edge(xValue, yValue, rows, columns):
 
 ## ----- Unit Test ----- ##
 
-'''
+
 x = generate_map()
-'''
+
 ## ----- ----- ##
      
 ## ----- End ----- ##
