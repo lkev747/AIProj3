@@ -118,6 +118,10 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
      # While there are elements in the open list
      while open_list:
                     
+          print("Size of Open: ", len(open_list))
+          print("Size of Closed: ", len(closed_list))
+          input("Press Enter")
+          
           # Find the node with the lowest F on the open list (Becomes Q)
           index = 0
           for count in range(len(open_list)):
@@ -127,8 +131,12 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
           # Pop Q off the open list
           Q = open_list[index]
           
-          # Push Q onto the closed list
-          closed_list.append(Q)
+          # Pop Q off the open list
+          Q = open_list.pop(index)
+          
+          
+          # Print out current Q
+          print("Q: ", Q['xcoord'], ", ", Q['ycoord'])
           
           
           # Generate Q's 8 successors and set their parents to Q
@@ -162,9 +170,13 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])              # E
           
           
-                   
+          print("Number of Successors: ", len(successor_list))    
           
           for successor in successor_list:
+               
+               print("Successor: ", successor['xcoord'], ", ", successor['ycoord'])
+
+               
                # If successor is the goal, stop the search
                if successor['xcoord'] == goal_node_x and successor['ycoord'] == goal_node_y:
                     print('path found')
@@ -172,6 +184,7 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
 
                # Skip blocked cells
                if successor['blocked'] == 1:
+                    print("Skipped: Cell is blocked")
                     continue
                
                
@@ -189,39 +202,51 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                # Calculate F
                successor['F'] = successor['H'] + successor['G']
                
-               print(successor['F'])
-
+               print("Successor F: ", successor['F'])
+               input("Press Enter")
                
                # If a node with the same position as successor is in the OPEN List
                # which has a lower F than successor, skip this successor
                
+               f0 = False # Flag that denotes if item is in the list, defaulted to NOT ON LIST
                for i in range(len(open_list)):
                                         
                     if open_list[i]['xcoord'] == successor['xcoord'] and open_list[i]['ycoord'] == successor['ycoord']:
                          if successor['F'] > open_list[i]['F']:
-                              continue
+                              f0 = True # Item is found on the list and should be skipped
+                              print("Thing Skipped: ", successor['F'],  " > ", open_list[i]['F'])
+                              break
 
                
                # If a node with the same position as successor is in the CLOSED
                # list which has a lower F than successor, skip this successor, 
                # otherwise, add this node to the open list.
                
+               f1 = False # Flag that denotes if item is in the list, defaulted to NOT ON LIST
                for i in range(len(closed_list)):
                     
-                    print("c5 reached")
-                    
-                    if closed_list[i]['xcoord'] == successor['xcoord'] and closed_list[i]['ycoord'] == successor['ycoord']:
+                    # Only consider this successor if f0 is False
+                    if closed_list[i]['xcoord'] == successor['xcoord'] and closed_list[i]['ycoord'] == successor['ycoord'] and f0 == False:
+                         f1 = True
                          if successor['F'] > open_list[i]['F']:
-                              continue
+                              print("Thing Not Added: ", successor['F'], " > ", open_list[i]['F'])
                          else:
-                              print("thing added")
+                              print("Thing Added: ", successor['F'], " < ", open_list[i]['F'])
                               open_list.append(successor)
-                    else:
-                         print("thing added")
-                         open_list.append(successor)
+                    if f1 == True:
+                         break
+                    
+               if f1 == False and f0 == False and len(closed_list) != 0:    
+                    print("Thing Added: Not on Closed List")
+                    open_list.append(successor)
+                    
+               if len(closed_list) == 0 and f0 == False:
+                    print("Thing Added: Closed List is Empty")
+                    open_list.append(successor)
           
-          # Pop Q off the open list
-          Q = open_list.pop(index)
+          
+          # Push Q onto the closed list
+          closed_list.append(Q)
           
 
 # ----- Unit Test ----- #
