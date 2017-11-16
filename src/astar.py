@@ -7,8 +7,8 @@ Created on Nov 13, 2017
 from generate_map import generate_map
 import math
 
-rows = 60      # Change to 120
-columns = 80   # Change to 160
+rows = 120      # Change to 120
+columns = 160   # Change to 160
 
 # --- Algorithm Steps --- #
 # Initialize Open List
@@ -118,9 +118,9 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
      # While there are elements in the open list
      while open_list:
                     
-          print("Size of Open: ", len(open_list))
-          print("Size of Closed: ", len(closed_list))
-          input("Press Enter")
+          #print("Size of Open: ", len(open_list))
+          #print("Size of Closed: ", len(closed_list))
+          #input("Press Enter")
           
           # Find the node with the lowest F on the open list (Becomes Q)
           index = 0
@@ -136,57 +136,76 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
           
           
           # Print out current Q
-          print("Q: ", Q['xcoord'], ", ", Q['ycoord'])
+          # print(" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Q: ", Q['xcoord'], ", ", Q['ycoord'], " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ")
           
           
           # Generate Q's 8 successors and set their parents to Q
                # Need to check for invalid (off the map) coordinates or blocked tiles
                # Successors are dictionary data types
           successor_list = []
+          
           # Check North
           if(Q['ycoord'] - 1 >= 0): # Validate Cell
+               #map_grid[Q['xcoord']][Q['ycoord'] - 1]['parentx'] = Q['xcoord']
+               #map_grid[Q['xcoord']][Q['ycoord'] - 1]['parenty'] = Q['ycoord']
                successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] - 1])              # N
                # Check Northeast
-               if(Q['xcoord'] + 1 < columns):
+               if(Q['xcoord'] + 1 < rows):
+                    #map_grid[Q['xcoord'] + 1][Q['ycoord'] - 1]['parentx'] = Q['xcoord']
+                    #map_grid[Q['xcoord'] + 1][Q['ycoord'] - 1]['parenty'] = Q['ycoord']
                     successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] - 1])     # NE
                # Check Northwest
                if(Q['xcoord'] - 1 >= 0):
+                    #map_grid[Q['xcoord'] - 1][Q['ycoord'] - 1]['parentx'] = Q['xcoord']
+                    #map_grid[Q['xcoord'] - 1][Q['ycoord'] - 1]['parenty'] = Q['ycoord']
                     successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] - 1])     # NW
           # Check South
-          if(Q['ycoord'] + 1 < rows): # Validate Cell
+          if(Q['ycoord'] + 1 < columns): # Validate Cell
+               #map_grid[Q['xcoord']][Q['ycoord'] + 1]['parentx'] = Q['xcoord']
+               #map_grid[Q['xcoord']][Q['ycoord'] + 1]['parenty'] = Q['ycoord']
                successor_list.append(map_grid[Q['xcoord']][Q['ycoord'] + 1])              # S
                # Check Southeast
-               if(Q['xcoord'] + 1 < columns):
+               if(Q['xcoord'] + 1 < rows):
+                    #map_grid[Q['xcoord'] + 1][Q['ycoord'] + 1]['parentx'] = Q['xcoord']
+                    #map_grid[Q['xcoord'] + 1][Q['ycoord'] + 1]['parenty'] = Q['ycoord']
                     successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord'] + 1])     # SE
                # Check Southwest
                if(Q['xcoord'] - 1 >= 0):
+                    #map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1]['parentx'] = Q['xcoord']
+                    #map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1]['parenty'] = Q['ycoord']
                     successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord'] + 1])     # SW
           # Check West
           if(Q['xcoord'] - 1 >= 0):
+               #map_grid[Q['xcoord'] - 1][Q['ycoord']]['parentx'] = Q['xcoord']
+               #map_grid[Q['xcoord'] - 1][Q['ycoord']]['parenty'] = Q['ycoord']
                successor_list.append(map_grid[Q['xcoord'] - 1][Q['ycoord']])              # W
           
           # Check East
-          if(Q['xcoord'] + 1 < columns):
+          if(Q['xcoord'] + 1 < rows):
+               #map_grid[Q['xcoord'] + 1][Q['ycoord']]['parentx'] = Q['xcoord']
+               #map_grid[Q['xcoord'] + 1][Q['ycoord']]['parenty'] = Q['ycoord']
                successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])              # E
           
           
-          print("Number of Successors: ", len(successor_list))    
+          # print("Number of Successors: ", len(successor_list))    
           
           for successor in successor_list:
+               #input("Press Enter")
                
-               print("Successor: ", successor['xcoord'], ", ", successor['ycoord'])
-
+               # print(" ~ Successor: ", successor['xcoord'], ", ", successor['ycoord'])
                
                # If successor is the goal, stop the search
                if successor['xcoord'] == goal_node_x and successor['ycoord'] == goal_node_y:
-                    print('path found')
+                    print('Path Found!!')
+                    map_grid[successor['xcoord']][successor['ycoord']]['parentx'] = Q['xcoord']
+                    map_grid[successor['xcoord']][successor['ycoord']]['parenty'] = Q['ycoord']
+                    return
                
 
                # Skip blocked cells
                if successor['blocked'] == 1:
-                    print("Skipped: Cell is blocked")
+                    # print(" >> Skipped: Cell is blocked")
                     continue
-               
                
                # Calculate G
                if Q['xcoord'] != successor['xcoord'] and Q['ycoord'] != successor['ycoord']: # Diagonal Traversal
@@ -202,8 +221,8 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                # Calculate F
                successor['F'] = successor['H'] + successor['G']
                
-               print("Successor F: ", successor['F'])
-               input("Press Enter")
+               # print("Successor F: ", successor['F'])
+               
                
                # If a node with the same position as successor is in the OPEN List
                # which has a lower F than successor, skip this successor
@@ -212,17 +231,13 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                for i in range(len(open_list)):
                                         
                     if open_list[i]['xcoord'] == successor['xcoord'] and open_list[i]['ycoord'] == successor['ycoord']:
-                         print("Found duplicate cell on Open List")
+                         # print("Found duplicate cell on Open List")
                          
                          if successor['F'] >= open_list[i]['F']:  # Item is found on the list and should be skipped    
                               f0 = True 
-                              print("Thing Skipped: ", successor['F'],  " > ", open_list[i]['F'])
+                              # print(" >> Thing Skipped: ", successor['F'],  " >= ", open_list[i]['F'])
                               break
                          
-                    # If the item is on the open list and is a better candidate, should we pop the old entry off the open list
-                    # before adding this new one?
-                         
-               
                # If a node with the same position as successor is in the CLOSED
                # list which has a lower F than successor, skip this successor, 
                # otherwise, add this node to the open list.
@@ -232,34 +247,68 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                     # Only consider this successor if f0 is False
                     if closed_list[i]['xcoord'] == successor['xcoord'] and closed_list[i]['ycoord'] == successor['ycoord'] and f0 == False:
                          
-                         print("Found Duplicate Cell on Closed List")
+                         # print("Found Duplicate Cell on Closed List")
 
                          f1 = True
                          if successor['F'] >= closed_list[i]['F']:
-                              print("Thing Not Added: ", successor['F'], " > ", closed_list[i]['F'])
+                              # print(" >> Thing Not Added: ", successor['F'], " >= ", closed_list[i]['F'])
+                              pass
                          else:
-                              print("Thing Added: ", successor['F'], " < ", closed_list[i]['F'])
+                              map_grid[successor['xcoord']][successor['ycoord']]['parentx'] = Q['xcoord']
+                              map_grid[successor['xcoord']][successor['ycoord']]['parenty'] = Q['ycoord']
                               open_list.append(successor)
+                              # print(" >> Thing Added: ", successor['F'], " < ", closed_list[i]['F'])
                     if f1 == True:
                          break
                     
                if f1 == False and f0 == False and len(closed_list) != 0:    
-                    print("Thing Added: Not on Open or Closed List")
+                    # print(" >> Thing Added: Not on Open or Closed List")
+                    map_grid[successor['xcoord']][successor['ycoord']]['parentx'] = Q['xcoord']
+                    map_grid[successor['xcoord']][successor['ycoord']]['parenty'] = Q['ycoord']
                     open_list.append(successor)
                     
                if len(closed_list) == 0 and f0 == False:
-                    print("Thing Added: Closed List is Empty")
+                    # print(" >> Thing Added: Closed List is Empty")
+                    map_grid[successor['xcoord']][successor['ycoord']]['parentx'] = Q['xcoord']
+                    map_grid[successor['xcoord']][successor['ycoord']]['parenty'] = Q['ycoord']
                     open_list.append(successor)
-          
           
           # Push Q onto the closed list
           closed_list.append(Q)
+     print("Path Not Found")
           
+
+def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
+     
+     count_x = goal_node_x
+     count_y = goal_node_y
+     path_x = []
+     path_y = []
+     
+     while count_x != start_node_x or count_y != start_node_y:
+          path_x.append(map_grid[count_x][count_y]['xcoord'])
+          path_y.append(map_grid[count_x][count_y]['ycoord'])
+          temp = count_x
+          count_x = map_grid[count_x][count_y]['parentx']
+          count_y = map_grid[temp][count_y]['parenty']
+     
+     path_x.append(start_node_x)
+     path_y.append(start_node_y)
+     path_x.reverse()
+     path_y.reverse()
+     
+     for i in range(len(path_x)):
+          if i % 10 == 1 and i != 1:
+               print()
+          print("(", path_x[i], ", ", path_y[i], "), ", end = '')
+
 
 # ----- Unit Test ----- #
 
 x = generate_map()
-
-aStar(x, 0, 0, 59, 79)     
+input("Press Enter to Start")
+aStar(x, 0, 0, 100, 100) 
+input("Show Path?")    
+printPath(x, 0, 0, 100, 100)
 
 
