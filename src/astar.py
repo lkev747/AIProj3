@@ -9,6 +9,7 @@ import math
 
 rows = 120      # Change to 120
 columns = 160   # Change to 160
+w = 1           # Representing Weighted A*
 
 # --- Algorithm Steps --- #
 # Initialize Open List
@@ -219,7 +220,7 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                
                
                # Calculate F
-               successor['F'] = successor['H'] + successor['G']
+               successor['F'] = (w * successor['H']) + successor['G']
                
                # print("Successor F: ", successor['F'])
                
@@ -305,7 +306,7 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
 
 # ----- Unit Test ----- #
 
-x = generate_map()
+x = generate_map(rows, columns)
 input("Press Enter to Start")
 aStar(x, 0, 0, 100, 100) 
 input("Show Path?")    
