@@ -49,7 +49,7 @@ def generate_map(rows, columns):
                          if(temp_hardened == 2):
                               empty_map[randx - mid + r][randy - mid + c] = 2
           ## ----- End Change Hardened Area ----- ##
-          
+     #print(center_hardened)     
      ## ----- End Harder to Traverse Cells ----- ##
      
      ## ----- Valid Highway Path Creation ----- ##
@@ -433,7 +433,7 @@ def generate_map(rows, columns):
           ## ----- Printing Map ----- ##
           
           
-          print("Counter: ", counter)
+          #print("Counter: ", counter)
           '''
           for x in range(0, rows):
                for y in range(0, columns):
@@ -471,6 +471,7 @@ def generate_map(rows, columns):
                final_map[i][j]['F'] = 0.0
                final_map[i][j]['G'] = 0.0
                final_map[i][j]['H'] = 0.0
+               final_map[i][j]['cost'] = 0.0
                if highway_map[i][j] == 'a' or highway_map[i][j] == 'b':
                     final_map[i][j]['highway'] = 1
                else: final_map[i][j]['highway'] = 0
