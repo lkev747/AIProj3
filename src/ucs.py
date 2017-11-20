@@ -58,8 +58,17 @@ def uniform(map_grid,
      frontier.append(map_grid[start_node_x][start_node_y])
      
      while frontier:
+          # Find the node with the lowest F on the open list (Becomes Q)
+          index = 0
+          for i in range(len(frontier)):
+               if frontier[i]['cost'] < frontier[index]['cost']:
+                    index = i
           
-          Q = frontier.pop(0)
+          # Pop Q off the open list
+          Q = frontier.pop(index)
+          
+          print("~~~~~~~~~~~~~~~~~~~~~~~ Q: ", Q['xcoord'], ", ", Q['ycoord'], " ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+          
           if Q['xcoord'] == goal_node_x and Q['ycoord'] == goal_node_y:
                print("Search Success!")
                return
@@ -92,12 +101,20 @@ def uniform(map_grid,
                successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])              # E
 
 
+          print("Number of Successors: ", len(successor_list))
+
           for successor in successor_list:
+               
+               #input("Press Enter")
+               
                x_temp = successor['xcoord']
                y_temp = successor['ycoord']
-
+               print(">> Successor: ", x_temp, ", ", y_temp)
+               
+               
                # Skip blocked cells
                if successor['blocked'] == 1:
+                    print("- Cell blocked, successor skipped.")
                     continue
                
                
@@ -109,7 +126,7 @@ def uniform(map_grid,
                     successor['G'] = traverseNSEW(Q, successor)
                
                map_grid[x_temp][y_temp]['cost'] = Q['cost'] + successor['G']  
-
+               
                          
                flag2 = False # Dictates that successor is not in the closed list
                for i in range(len(explored)):
@@ -122,26 +139,56 @@ def uniform(map_grid,
                          flag1 = True # Indicates that successor is in the open list
                          # If the successor is in the open list but has a lower path cost
                               # replace the entry in the open list
-                         if successor['F'] < frontier[i]['F']:
+                         if map_grid[x_temp][y_temp]['cost'] < frontier[i]['cost']:
                               frontier.pop(i)
                               frontier.append(successor)
                               map_grid[x_temp][y_temp]['parentx'] = Q['xcoord']
                               map_grid[x_temp][y_temp]['parenty'] = Q['ycoord']
+                              print("- Added to frontier, better cost")
                
                # If the success is not in the open or closed lists, then add it to the frontier
                if flag1 == False and flag2 == False:
                     frontier.append(successor)
                     map_grid[x_temp][y_temp]['parentx'] = Q['xcoord']
                     map_grid[x_temp][y_temp]['parenty'] = Q['ycoord']
+                    print("- Added to frontier, not on open or closed list")
+               
+                    
+          # Add Q to the closed list
+          explored.append(Q)
           
-     
      print("Search Failed...")
      return
+
+def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
+     
+     count_x = goal_node_x
+     count_y = goal_node_y
+     path_x = []
+     path_y = []
+     
+     while count_x != start_node_x or count_y != start_node_y:
+          path_x.append(map_grid[count_x][count_y]['xcoord'])
+          path_y.append(map_grid[count_x][count_y]['ycoord'])
+          temp = count_x
+          count_x = map_grid[count_x][count_y]['parentx']
+          count_y = map_grid[temp][count_y]['parenty']
+     
+     path_x.append(start_node_x)
+     path_y.append(start_node_y)
+     path_x.reverse()
+     path_y.reverse()
+     
+     for i in range(len(path_x)):
+          if i % 10 == 1 and i != 1:
+               print()
+          print("(", path_x[i], ", ", path_y[i], "), ", end = '')
+
 
 
 
 x = generate_map(rows, columns)
 input("Press Enter to Start")
-uniform(x, 0, 0, 100, 100) 
-#input("Show Path?")    
-#printPath(x, 0, 0, 100, 100)
+uniform(x, 0, 0, 10, 10) 
+input("Show Path?")    
+printPath(x, 0, 0, 10, 10)
