@@ -110,7 +110,14 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
           # Both lists will contain dictionaries from the map, a grid cell.
      open_list= []
      closed_list = []
-
+     
+     '''
+     ## ----- Set Start and Goal Node to traverable cells ----- ##
+     if(map_grid[start_node_x][start_node_y]['blocked'] == 1):
+          map_grid
+     if(map_grid[goal_node_x][goal_node_y]['blocked'] == 1):
+     ## ----- End Set Start and Goal Node to traverable cells ----- ##
+     '''
      
      # Place the starting node in the open list
      open_list.append(map_grid[start_node_x][start_node_y]) 
