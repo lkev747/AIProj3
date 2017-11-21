@@ -38,6 +38,7 @@ def open_file(event):
 ## ----- Open File ----- ##
 def open_file(event):
      fileObject = open("file_name.txt", 'r')
-     
+     start_x = fileObject[0][0]
+     start_y = fileObject[0][1]
 
 ## ----- End Open File ----- ##
