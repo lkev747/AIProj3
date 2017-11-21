@@ -37,8 +37,31 @@ def open_file(event):
 
 ## ----- Open File ----- ##
 def open_file(event):
-     fileObject = open("file_name.txt", 'r')
-     start_x = fileObject[0][0]
-     start_y = fileObject[0][1]
-
+     fileObject = open(event, 'r')
+     lines = fileObject.readlines()
+     
+     start = []
+     goal = []
+     hardened = []
+     
+     
+     start.append(int(lines[0].split(' ')[0]))
+     start.append(int(lines[0].split(' ')[1]))
+     print(start)
+     goal.append(int(lines[1].split(' ')[0]))
+     goal.append(int(lines[1].split(' ')[1]))
+     print(goal)
+     
+     for x in range(2, 10):
+          hardened.append(int(lines[x].split(' ')[0]))
+          hardened.append(int(lines[x].split(' ')[1]))
+          
+     print(hardened)
+     
+     print("Hello World")
+     
 ## ----- End Open File ----- ##
+
+
+## ----- Unit Test ----- ##
+open_file("map1a.txt")
