@@ -8,6 +8,20 @@ from decimal import Decimal
 
 # Included in the search functions is the Diagonal Distance heuristic
 
+def heuristic_sel(current_cell, goal_cell, i):
+     if i == 0:
+          return diagonal(current_cell, goal_cell)
+     elif i == 1:
+          return manhattan(current_cell, goal_cell)
+     elif i == 2:
+          return chebyshev(current_cell, goal_cell)
+     elif i == 3:
+          return euclidean(current_cell, goal_cell)
+     elif i == 4:
+          return minkowski(current_cell, goal_cell)
+     
+
+
 def diagonal(current_cell, goal_cell):
      # Traversing from current (X,Y) coordinates to goal cell (X,Y) coordinates
           # Calculate the distance, Assuming optomistic
