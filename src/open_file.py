@@ -60,34 +60,34 @@ def open_file(event):
           
      print(hardened)
      
-     map = [[{} for x in range(0, 160)] for y in range(0, 120)]
+     myMap = [[{} for x in range(0, 120)] for y in range(0, 160)]
      
      for i in range(0, 120):
           for j in range(0, 160):
-               map[i][j]['xcoord'] = i
-               map[i][j]['ycoord'] = j
-               map[i][j] = lines[i+10][j] 
-               #map[i][j]['parentx'] = 0
-               #map[i][j]['parenty'] = 0
-               #map[i][j]['F'] = 0.0
-               #map[i][j]['G'] = 0.0
-               #map[i][j]['H'] = 0.0
-               #map[i][j]['cost'] = 0.0
-               '''
+               myMap[i][j]['xcoord'] = i
+               myMap[i][j]['ycoord'] = j
+               myMap[i][j] = lines[i+10][j] 
+               myMap[i][j]['parentx'] = 0
+               myMap[i][j]['parenty'] = 0
+               myMap[i][j]['F'] = 0.0
+               myMap[i][j]['G'] = 0.0
+               myMap[i][j]['H'] = 0.0
+               myMap[i][j]['cost'] = 0.0
+               
                if lines[i+10][j] == 'a' or lines[i+10][j] == 'b':
-                    map[i][j]['highway'] = 1
+                    myMap[i][j]['highway'] = 1
                else:
-                    map[i][j]['highway'] = 0 
+                    myMap[i][j]['highway'] = 0 
                if lines[i+10][j] == 2:
-                    map[i][j]['hardened'] = 1
+                    myMap[i][j]['hardened'] = 1
                else:
-                    map[i][j]['hardened'] = 0
+                    myMap[i][j]['hardened'] = 0
                if lines[i+10][j] == 0:
-                    map[i][j]['blocked'] = 1
+                    myMap[i][j]['blocked'] = 1
                else:
-                    map[i][j]['blocked'] = 0 
-               '''
-               print(map[i][j], end='')
+                    myMap[i][j]['blocked'] = 0 
+               
+               print(myMap[i][j], end='')
           print()
      
 ## ----- End Open File ----- ##
