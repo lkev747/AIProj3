@@ -40,6 +40,8 @@ def open_file(event):
      fileObject = open(event, 'r')
      lines = fileObject.readlines()
      
+     print(lines)
+     
      start = []
      goal = []
      hardened = []
@@ -58,7 +60,35 @@ def open_file(event):
           
      print(hardened)
      
-     print("Hello World")
+     map = [[{} for x in range(0, 160)] for y in range(0, 120)]
+     
+     for i in range(0, 120):
+          for j in range(0, 160):
+               map[i][j]['xcoord'] = i
+               map[i][j]['ycoord'] = j
+               map[i][j] = lines[i+10][j] 
+               #map[i][j]['parentx'] = 0
+               #map[i][j]['parenty'] = 0
+               #map[i][j]['F'] = 0.0
+               #map[i][j]['G'] = 0.0
+               #map[i][j]['H'] = 0.0
+               #map[i][j]['cost'] = 0.0
+               '''
+               if lines[i+10][j] == 'a' or lines[i+10][j] == 'b':
+                    map[i][j]['highway'] = 1
+               else:
+                    map[i][j]['highway'] = 0 
+               if lines[i+10][j] == 2:
+                    map[i][j]['hardened'] = 1
+               else:
+                    map[i][j]['hardened'] = 0
+               if lines[i+10][j] == 0:
+                    map[i][j]['blocked'] = 1
+               else:
+                    map[i][j]['blocked'] = 0 
+               '''
+               print(map[i][j], end='')
+          print()
      
 ## ----- End Open File ----- ##
 
