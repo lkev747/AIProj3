@@ -305,8 +305,8 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
      path_x.reverse()
      path_y.reverse()
      
-     #print(path_x)
-     #print(path_y)
+     print(path_x)
+     print(path_y)
      
      for i in range(len(path_x)):
           if i % 10 == 1 and i != 1:
@@ -318,8 +318,8 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
 '''
 x = generate_map(rows, columns)
 input("Press Enter to Start")
-aStar(x, 0, 0, 11, 19) 
+aStar(x, 0, 0, 0, 5) 
 input("Show Path?")    
-printPath(x, 0, 0, 11, 19)
+printPath(x, 0, 0, 0, 5)
 '''
 

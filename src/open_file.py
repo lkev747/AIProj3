@@ -72,8 +72,22 @@ def open_file(event):
      return myMap, start, goal
 ## ----- End Open File ----- ##
 
-def callback():
-     print("click")
+def bubbleSort2Arrays(x, y):
+     n = len(x)
+     
+     # Traverse through all array elements
+     for i in range(n):
+ 
+          # Last i elements are already in place
+          for j in range(0, n-i-1):
+ 
+               # traverse the array from 0 to n-i-1
+               # Swap if the element found is greater
+               # than the next element
+               if x[j] > x[j+1] :
+                    x[j], x[j+1] = x[j+1], x[j]
+                    y[j], y[j+1] = y[j+1], y[j]
+     
 
 ## ----- Unit Test ----- ##
 gameMap, start, goal = open_file("map1a.txt")
@@ -93,8 +107,8 @@ If you dare change it to 80 by 80.
 Also I am not sure how to get the width and height any smaller. I need them to be pretty small to fit the entire map
 Also I think the last line "root.mainloop()" is taking all the processing power. Any ideas around it?
 '''
-rows = 20
-columns = 20
+rows = 50
+columns = 100
 grid = [ [1]*columns for n in range(rows)]
 root = Tk() # Creates first window
 root.title("Game Map")
@@ -107,22 +121,42 @@ for r in range(0, rows):
                label = Label(root, fg='white', bg='black', width=1, height=1)
                #label = Label(root, fg='white', bg='black',text=gameMap[r][c]['value'])
                label.grid(row=r, column=c)
+               gameMap[r][c]['blocked'] = 1
+               gameMap[r][c]['hardened'] = 0
+               gameMap[r][c]['highway'] = 0
+               
           elif(gameMap[r][c]['value'] == '1'):
                label = Label(root, bg='white', width=1, height=1)
                #label = Label(root, bg='white',text=gameMap[r][c]['value'])
                label.grid(row=r, column=c)
+               gameMap[r][c]['blocked'] = 0
+               gameMap[r][c]['hardened'] = 0
+               gameMap[r][c]['highway'] = 0
+               
           elif(gameMap[r][c]['value'] == '2'):
                label = Label(root, bg='grey', width=1, height=1)
                #label = Label(root, bg='grey',text=gameMap[r][c]['value'])
                label.grid(row=r, column=c)
+               gameMap[r][c]['blocked'] = 0 
+               gameMap[r][c]['hardened'] = 1
+               gameMap[r][c]['highway'] = 0
+               
           elif(gameMap[r][c]['value'] == 'a'):
                label = Label(root, bg='blue', width=1, height=1)
                #label = Label(root, bg='blue',text=gameMap[r][c]['value'])
                label.grid(row=r, column=c)
+               gameMap[r][c]['blocked'] = 0
+               gameMap[r][c]['hardened'] = 0
+               gameMap[r][c]['highway'] = 1
+               
           elif(gameMap[r][c]['value'] == 'b'):
                label = Label(root, bg='dark blue', width=1, height=1)
                #label = Label(root, bg='dark blue',text=gameMap[r][c]['value'])
                label.grid(row=r, column=c)
+               gameMap[r][c]['blocked'] = 0
+               gameMap[r][c]['hardened'] = 1
+               gameMap[r][c]['highway'] = 1
+               
           '''
           label = Label(root, fg='white', bg='black',text=gameMap[r][c]['value'])
           label.grid(row=r, column=c)
@@ -136,6 +170,7 @@ for r in range(0, rows):
 
 aStar(gameMap, start_x, start_y, goal_x, goal_y) 
 path_x, path_y = printPath(gameMap, start_x, start_y, goal_x, goal_y)
+bubbleSort2Arrays(path_x, path_y)
 print()
 print("X", path_x)
 print()
@@ -148,6 +183,9 @@ for r in range(0, rows):
           if(i < len(path_x)):
                if(gameMap[r][c]['xcoord'] == path_x[i] and gameMap[r][c]['ycoord'] == path_y[i]):
                     print("i:", i)
+                    print("x[i]:", path_x[i])
+                    print("y[i]:", path_y[i])
+                    
                     label = Label(root, bg='yellow', width=1, height=1)
                     label.grid(row=r, column=c)
                     i += 1
