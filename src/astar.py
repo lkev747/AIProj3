@@ -305,14 +305,14 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
      path_x.reverse()
      path_y.reverse()
      
-     print(path_x)
-     print(path_y)
-     
+     #print(path_x)
+     #print(path_y)
+     '''
      for i in range(len(path_x)):
           if i % 10 == 1 and i != 1:
                print()
           print("(", path_x[i], ", ", path_y[i], "), ", end = '')
-     
+     '''
      return path_x, path_y
 # ----- Unit Test ----- #
 '''
