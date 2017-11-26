@@ -6,6 +6,8 @@ Created on Nov 19, 2017
 
 from tkinter import *
 from functools import partial
+from astar import aStar
+from astar import printPath
 
 ## ----- Open File ----- ##
 def open_file(event):
@@ -14,6 +16,8 @@ def open_file(event):
      
      print(lines)
      
+     ## Start = 101 158
+     ## Goal = 102 7
      start = []
      goal = []
      hardened = []
@@ -65,14 +69,20 @@ def open_file(event):
                
                #print(myMap[i][j], end ='')
           #print()
-     return myMap
+     return myMap, start, goal
 ## ----- End Open File ----- ##
 
 def callback():
      print("click")
 
 ## ----- Unit Test ----- ##
-gameMap = open_file("map1a.txt")
+gameMap, start, goal = open_file("map1a.txt")
+start_x = int(start[0])
+start_y = int(start[1])
+goal_x = int(goal[0])
+goal_y = int(goal[1])
+print(start_x, start_y)
+print(goal_x, goal_y)
 
 '''
 Hey Kevin, 
@@ -84,7 +94,7 @@ Also I am not sure how to get the width and height any smaller. I need them to b
 Also I think the last line "root.mainloop()" is taking all the processing power. Any ideas around it?
 '''
 rows = 20
-columns = 30
+columns = 20
 grid = [ [1]*columns for n in range(rows)]
 root = Tk() # Creates first window
 root.title("Game Map")
@@ -118,6 +128,30 @@ for r in range(0, rows):
           label.grid(row=r, column=c)
           '''
           
+          '''
+          Need to make the size of the cells smaller to fit everything
+          Need to call A* on this
+          Need to add information about each cell to it, F, G, H and so on
+          '''
+
+aStar(gameMap, start_x, start_y, goal_x, goal_y) 
+path_x, path_y = printPath(gameMap, start_x, start_y, goal_x, goal_y)
+print()
+print("X", path_x)
+print()
+print("Y", path_y)
+print()
+i = 0
+print("Length", len(path_x))
+for r in range(0, rows):
+     for c in range(0, columns):
+          if(i < len(path_x)):
+               if(gameMap[r][c]['xcoord'] == path_x[i] and gameMap[r][c]['ycoord'] == path_y[i]):
+                    print("i:", i)
+                    label = Label(root, bg='yellow', width=1, height=1)
+                    label.grid(row=r, column=c)
+                    i += 1
+
 root.mainloop()
 
      
