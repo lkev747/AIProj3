@@ -46,6 +46,9 @@ def traverseDIAG(current_cell, new_cell):
      return cost    
 
 def expandState(s, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y):
+     print("Expanding state...")
+     print("Length of Open List ", i, ": ", len(open_list[i]))
+     
      # Locate and Remove s from open_list[i]
      index = 0
      for node in open_list[i]:
@@ -55,6 +58,7 @@ def expandState(s, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y
                index = index + 1;
      Q = open_list[i].pop(index)
      
+     print("Node popped: ", Q['xcoord'], ", ", Q['ycoord'])
           
      successor_list = []
      # Check North
@@ -83,6 +87,8 @@ def expandState(s, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y
      if(Q['xcoord'] + 1 < rows):
           successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])              # E
 
+     print("Length of Successor List: ", len(successor_list))
+
      for successor in successor_list:
           
           # Determine if the successor is in the open list
@@ -106,7 +112,7 @@ def expandState(s, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y
           else:
                successor['G'] = traverseNSEW(Q, successor)
                
-          if successor['cost'] > Q['cost'] + successor['G']:
+          if successor['cost'] > Q['cost'] + successor['G']:               
                successor['cost'] = Q['cost'] + successor['G']
                successor['parentx'] = Q['xcoord']
                successor['parenty'] = Q['ycoord']
@@ -116,15 +122,17 @@ def expandState(s, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y
                
                
                f1 = False # Flag that denotes if item is in the list, defaulted to NOT ON LIST
-               for i in range(len(closed_list)):                    
+               for j in range(len(closed_list[i])):                    
                     # Only consider this successor if f0 is False
-                    if closed_list[i]['xcoord'] == successor['xcoord'] and closed_list[i]['ycoord'] == successor['ycoord'] and f0 == False:
+                    if closed_list[i][j]['xcoord'] == successor['xcoord'] and closed_list[i][j]['ycoord'] == successor['ycoord'] and f0 == False:
                          f1 = True
                if f1 == False:
                     # update open_list[i] with Key(s', i)
                     successor['H'] = heuristics.heuristic_sel(successor, map_grid[goal_node_x][goal_node_y], i)
                     successor['F'] = successor['G'] + successor['H']
+                    print("adding to open_list")
                     open_list[i].append(successor)
+                    print("Open List ", i, " size: ", len(open_list[i]))
 
 def seqheu(map_grid, 
            start_node_x, 
@@ -141,7 +149,8 @@ def seqheu(map_grid,
           map_grid[start_node_x][start_node_y]['cost'] = 0
           map_grid[goal_node_x][goal_node_y]['cost'] = inf
           open_list[i].append(map_grid[start_node_x][start_node_y])
-          
+     
+     
      # While Loop: while the first open list is not empty...
      while open_list[0]:
           
@@ -151,6 +160,8 @@ def seqheu(map_grid,
                if open_list[0][count]['F'] < open_list[0][index]['F']:
                     index = count
           minkey0 = open_list[0][index]
+          
+          print(" ~~~~~ Q: ", minkey0['xcoord'], ", ", minkey0['ycoord'])
           
           # For each open_list i through n...
           for i in range(1, n):
@@ -171,12 +182,12 @@ def seqheu(map_grid,
                               print("Done")
                               return # terminate and return path
                     else:
-                         expandState(minkey, i, open_list, closed_list, goal_node_x, goal_node_y)
+                         expandState(minkey, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y)
                          closed_list[i].append(minkey)
                else:
                     # ~~~~~ 
                          # ~~~~~ 
-                    if map_grid[goal_node_x][goal_node_y]['cost'] <= minkey0:
+                    if map_grid[goal_node_x][goal_node_y]['cost'] <= minkey0['cost']:
                          if map_grid[goal_node_x][goal_node_y]['cost'] < inf:
                               print("Done")
                               return # terminate and return path
@@ -189,7 +200,12 @@ def seqheu(map_grid,
                          expandState(minkey0, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y)
                          closed_list.append(minkey0)
                          
-               
+x = generate_map(rows, columns)
+input("Press Enter to Start")
+seqheu(x, 0, 0, 10, 10, 4)
+input("Show Path?")    
+
+     
                
 
 
