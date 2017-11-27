@@ -199,12 +199,13 @@ def seqheu(map_grid,
                          minkey0 = open_list[0][index]
                          expandState(minkey0, i, map_grid, open_list, closed_list, goal_node_x, goal_node_y)
                          closed_list.append(minkey0)
-                         
+
+'''                         
 x = generate_map(rows, columns)
 input("Press Enter to Start")
 seqheu(x, 0, 0, 10, 10, 4)
 input("Show Path?")    
-
+'''
      
                
 

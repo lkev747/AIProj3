@@ -6,6 +6,7 @@ Created on Nov 13, 2017
 
 from generate_map import generate_map
 import math
+from heuristics import heuristic_sel
 
 rows = 120      # Change to 120
 columns = 160   # Change to 160
@@ -103,7 +104,9 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
           start_node_x,       # Int - Coordinates of start location
           start_node_y,
           goal_node_x,        # Int - Coordinates of end location
-          goal_node_y
+          goal_node_y,
+          heuristic,
+          weight
           ):
      
      # Initialize the open and closed lists
@@ -223,11 +226,13 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
                     
                     
                # Calculate H
-               successor['H'] = heuristic(successor, map_grid[goal_node_x][goal_node_y])
+               successor['H'] = heuristic_sel(successor, map_grid[goal_node_x][goal_node_y], heuristic)
+               
+               #successor['H'] = heuristic(successor, map_grid[goal_node_x][goal_node_y])
                
                
                # Calculate F
-               successor['F'] = (w * successor['H']) + successor['G']
+               successor['F'] = (weight * successor['H']) + successor['G']
                
                # print("Successor F: ", successor['F'])
                
@@ -288,6 +293,7 @@ def aStar(map_grid,           # 2D grid of dictionaries representing map
 
 def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
      
+     path_cost = 0
      count_x = goal_node_x
      count_y = goal_node_y
      path_x = []
@@ -297,6 +303,16 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
           path_x.append(map_grid[count_x][count_y]['xcoord'])
           path_y.append(map_grid[count_x][count_y]['ycoord'])
           temp = count_x
+          
+          p_x = map_grid[count_x][count_y]['parentx']
+          p_y = map_grid[temp][count_y]['parenty']
+          if map_grid[count_x][count_y]['xcoord'] != count_x and map_grid[count_x][count_y]['ycoord'] != count_y: # Diagonal Traversal
+               path_cost += traverseDIAG(map_grid[count_x][count_y], map_grid[p_x][p_y])
+          else:
+               path_cost += traverseNSEW(map_grid[count_x][count_y], map_grid[p_x][p_y])
+          
+          path_cost += map_grid[count_x][count_y]['cost']
+     
           count_x = map_grid[count_x][count_y]['parentx']
           count_y = map_grid[temp][count_y]['parenty']
      
@@ -304,6 +320,10 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
      path_y.append(start_node_y)
      path_x.reverse()
      path_y.reverse()
+     
+     
+     # remove line of code
+     return(len(path_x)), path_cost
      
      #print(path_x)
      #print(path_y)
@@ -313,13 +333,13 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
                print()
           print("(", path_x[i], ", ", path_y[i], "), ", end = '')
      '''
-     return path_x, path_y
+     #return path_x, path_y
 # ----- Unit Test ----- #
 '''
 x = generate_map(rows, columns)
 input("Press Enter to Start")
-aStar(x, 0, 0, 0, 5) 
+aStar(x, 0, 0, 100, 100, 5, 1) 
 input("Show Path?")    
-printPath(x, 0, 0, 0, 5)
+printPath(x, 0, 0, 100, 100)
 '''
 

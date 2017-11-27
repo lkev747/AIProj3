@@ -67,7 +67,7 @@ def uniform(map_grid,
           # Pop Q off the open list
           Q = frontier.pop(index)
           
-          print("~~~~~~~~~~~~~~~~~~~~~~~ Q: ", Q['xcoord'], ", ", Q['ycoord'], " ~~~~~~~~~~~~~~~~~~~~~~~~~~")
+          #print("~~~~~~~~~~~~~~~~~~~~~~~ Q: ", Q['xcoord'], ", ", Q['ycoord'], " ~~~~~~~~~~~~~~~~~~~~~~~~~~")
           
           if Q['xcoord'] == goal_node_x and Q['ycoord'] == goal_node_y:
                print("Search Success!")
@@ -101,7 +101,7 @@ def uniform(map_grid,
                successor_list.append(map_grid[Q['xcoord'] + 1][Q['ycoord']])              # E
 
 
-          print("Number of Successors: ", len(successor_list))
+          #print("Number of Successors: ", len(successor_list))
 
           for successor in successor_list:
                
@@ -109,12 +109,12 @@ def uniform(map_grid,
                
                x_temp = successor['xcoord']
                y_temp = successor['ycoord']
-               print(">> Successor: ", x_temp, ", ", y_temp)
+               #print(">> Successor: ", x_temp, ", ", y_temp)
                
                
                # Skip blocked cells
                if successor['blocked'] == 1:
-                    print("- Cell blocked, successor skipped.")
+                    #print("- Cell blocked, successor skipped.")
                     continue
                
                
@@ -144,14 +144,14 @@ def uniform(map_grid,
                               frontier.append(successor)
                               map_grid[x_temp][y_temp]['parentx'] = Q['xcoord']
                               map_grid[x_temp][y_temp]['parenty'] = Q['ycoord']
-                              print("- Added to frontier, better cost")
+                              #print("- Added to frontier, better cost")
                
                # If the success is not in the open or closed lists, then add it to the frontier
                if flag1 == False and flag2 == False:
                     frontier.append(successor)
                     map_grid[x_temp][y_temp]['parentx'] = Q['xcoord']
                     map_grid[x_temp][y_temp]['parenty'] = Q['ycoord']
-                    print("- Added to frontier, not on open or closed list")
+                    #print("- Added to frontier, not on open or closed list")
                
                     
           # Add Q to the closed list
@@ -186,9 +186,10 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
 
 
 
-
+'''
 x = generate_map(rows, columns)
 input("Press Enter to Start")
 uniform(x, 0, 0, 10, 10) 
 input("Show Path?")    
 printPath(x, 0, 0, 10, 10)
+'''

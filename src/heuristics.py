@@ -19,6 +19,8 @@ def heuristic_sel(current_cell, goal_cell, i):
           return euclidean(current_cell, goal_cell)
      elif i == 4:
           return minkowski(current_cell, goal_cell)
+     elif i == 5:
+          return heuristic(current_cell, goal_cell)
      
 
 
@@ -60,5 +62,17 @@ def minkowski(current_cell, goal_cell):
      dy = pow(abs(current_cell['ycoord'] - goal_cell['ycoord']),3)
      return (dx + dy) ** (1/3)
      
+def heuristic(current_cell, goal_cell):
+     # Traversing from current (X,Y) coordinates to goal cell (X,Y) coordinates
+          # Calculate the distance, Assuming optomistic
+          # Most optomistic is either .25 or 1
+     costNSEW = 1
+     costDIAG = math.sqrt(2)
      
+     dx = abs(current_cell['xcoord'] - goal_cell['xcoord'])
+     dy = abs(current_cell['ycoord'] - goal_cell['ycoord'])
+     
+     costH = costNSEW * (dx + dy) + (costDIAG - 2 * costNSEW) * min(dx, dy)
+     
+     return costH     
      
