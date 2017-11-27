@@ -35,6 +35,306 @@ def importantCells(start, goal):
      return start_x, start_y, goal_x, goal_y
 
 
+## ----- Sequential A* ----- ##
+total_time = 0
+
+M, S, G= open_file("map1a.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+
+M, S, G= open_file("map1b.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1c.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1d.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1e.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1f.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1g.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1h.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1i.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map1j.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+
+
+M, S, G= open_file("map2a.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2b.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2c.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2d.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2e.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2f.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2g.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2h.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2i.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map2j.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+
+
+
+
+
+
+M, S, G= open_file("map4a.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4b.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4c.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4d.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4e.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4f.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4g.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4h.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4i.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map4j.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+
+
+M, S, G= open_file("map5a.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5b.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5c.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5d.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+M, S, G= open_file("map5e.txt")
+
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5f.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5g.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5h.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5i.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+M, S, G= open_file("map5j.txt")
+sx, sy, gx, gy = importantCells(S, G)
+start_time = time.time()
+M, i = seqheu(M, sx, sy, gx, gy, 4)
+running_time = time.time() - start_time
+total_time += running_time
+
+print("------------------------------")
+print("Sequential A* ")
+print("Average Time = ", total_time/40.0)
+print("------------------------------")
+## ----- Sequential A* ----- ##
+
+'''
 ## ----- A* weight = 1 ----- ##
 H = 4
 total_time = 0
@@ -461,7 +761,7 @@ print("Average Cost = ", total_path_cost/40.0)
 print("------------------------------")
 
 ## ----- A* weight = 1 ---- ##
-
+'''
 
 '''
 ## ----- A* weight = 2 ----- ##

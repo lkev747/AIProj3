@@ -94,7 +94,7 @@ def bubbleSort2Arrays(x, y):
 
                     
 ## ----- Unit Test ----- ##
-
+'''
 gameMap, start, goal = open_file("map1j.txt")
 start_x = int(start[0])
 start_y = int(start[1])
@@ -102,7 +102,7 @@ goal_x = int(goal[0])
 goal_y = int(goal[1])
 #print(start_x, start_y)
 #print(goal_x, goal_y)
-
+'''
 
 
 # http://tkinter.unpythonic.net/wiki/VerticalScrolledFrame
@@ -257,7 +257,7 @@ def cellInformation(x, y):
      entry2 = Entry(frame2, width=15, text="Y").grid(row=0,column=2)
      button1 = Button(frame2, width=5, text="run").grid(row=0,column=3)
      '''
-
+'''
      aStar(gameMap, start_x, start_y, goal_x, goal_y) 
      label2 = Label(root, text="F =").grid(row=1,column=0)
      label3 = Label(root, text=gameMap[x][y]['F']).grid(row=1,column=1)
@@ -273,3 +273,4 @@ app = SampleApp()
 app.mainloop()
 #root = Tk()
 #root.mainloop()
+'''

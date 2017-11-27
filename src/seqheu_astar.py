@@ -8,6 +8,7 @@ from generate_map import generate_map
 import math
 import heuristics
 from math import inf
+from open_file import open_file
 
 rows = 120      # Change to 120
 columns = 160   # Change to 160
@@ -224,11 +225,15 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
           path_x.append(map_grid[count_x][count_y]['xcoord'])
           path_y.append(map_grid[count_x][count_y]['ycoord'])
           
-          print("(", map_grid[count_x][count_y]['xcoord'], end = '')
-          print(", ", map_grid[count_x][count_y]['ycoord'], ")")
+          
+          #print("(", map_grid[count_x][count_y]['xcoord'], end = '')
+          #print(", ", map_grid[count_x][count_y]['ycoord'], ")")
+          #input("Press Enter")
+          '''
+          print(map_grid[count_x][count_y]['parentx'])
+          print(map_grid[count_x][count_y]['parenty'])
           input("Press Enter")
-          
-          
+          '''
           temp = count_x
           
           count_x = map_grid[count_x][count_y]['parentx']
@@ -247,14 +252,26 @@ def printPath(map_grid, start_node_x, start_node_y, goal_node_x, goal_node_y):
      
 
 
+'''
+101 8
+15 18
+'''
+
+
+gameMap, start, goal = open_file("map1j.txt")
+start_x = int(start[0])
+start_y = int(start[1])
+goal_x = int(goal[0])
+goal_y = int(goal[1])
                         
-x = generate_map(rows, columns)
+#x = generate_map(rows, columns)
+'''
 input("Press Enter to Start")
-map_grid, i = seqheu(x, 0, 0, 5, 5, 5)
+map_grid, i = seqheu(gameMap, start_x, start_y, goal_x, goal_y, 2)
 print(len(map_grid))
 input("Show Path?")    
-printPath(map_grid[i], 0, 0, 5, 5)
-
+printPath(map_grid[i], start_x, start_y, goal_x, goal_y)
+'''
      
                
 

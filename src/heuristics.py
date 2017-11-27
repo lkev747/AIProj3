@@ -6,6 +6,7 @@ Created on Nov 19, 2017
 import math
 from decimal import Decimal
 
+
 # Included in the search functions is the Diagonal Distance heuristic
 
 def heuristic_sel(current_cell, goal_cell, i):
