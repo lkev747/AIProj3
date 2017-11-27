@@ -95,7 +95,7 @@ def bubbleSort2Arrays(x, y):
                     
 ## ----- Unit Test ----- ##
 
-gameMap, start, goal = open_file("map1a.txt")
+gameMap, start, goal = open_file("map1j.txt")
 start_x = int(start[0])
 start_y = int(start[1])
 goal_x = int(goal[0])
@@ -175,8 +175,8 @@ if __name__ == "__main__":
                
                ## ----- Cell Information ----- ##
               
-               rows = 50
-               columns = 50
+               rows = 75
+               columns = 100
                
                for r in range(0, rows):
                     for c in range(0, columns):
@@ -215,7 +215,17 @@ if __name__ == "__main__":
                               gameMap[r][c]['hardened'] = 1
                               gameMap[r][c]['highway'] = 1
                               
-               aStar(gameMap, start_x, start_y, goal_x, goal_y) 
+               ## ----- A* ..... Diagonal Distance ----- ##               
+               aStar(gameMap, start_x, start_y, goal_x, goal_y, 0, 1)
+               ## ----- A* ..... Manhattan Distance ----- ## 
+               #aStar(gameMap, start_x, start_y, goal_x, goal_y, 1, 1) 
+               ## ----- A* ..... Chebychev Distance ----- ## 
+               #aStar(gameMap, start_x, start_y, goal_x, goal_y, 2, 1) 
+               ## ----- A* ..... Euclidean Distance ----- ## 
+               #aStar(gameMap, start_x, start_y, goal_x, goal_y, 3, 1) 
+               ## ----- A* ..... Minkowski Distance ----- ## 
+               #aStar(gameMap, start_x, start_y, goal_x, goal_y, 4, 1) 
+               
                path_x, path_y = printPath(gameMap, start_x, start_y, goal_x, goal_y)
                bubbleSort2Arrays(path_x, path_y)  
                
@@ -223,11 +233,15 @@ if __name__ == "__main__":
                print("Length:", len(path_x))
                for r in range(0, rows):
                     for c in range(0, columns):
-                         if(i < len(path_x)):
+                         if(i != 0 and i != len(path_x) - 1):
+                              if(i < len(path_x)):
+                                   if(gameMap[r][c]['xcoord'] == path_x[i] and gameMap[r][c]['ycoord'] == path_y[i]):
+                                        self.label = Label(self.frame.interior, bg='yellow', width=1, height=1).grid(row=r+5, column=c+5)
+                                        i += 1
+                         else:
                               if(gameMap[r][c]['xcoord'] == path_x[i] and gameMap[r][c]['ycoord'] == path_y[i]):
-                                   self.label = Label(self.frame.interior, bg='yellow', width=1, height=1).grid(row=r+5, column=c+5)
+                                   self.label = Label(self.frame.interior, bg='red', width=1, height=1).grid(row=r+5, column=c+5)
                                    i += 1
-
 def cellInformation(x, y):
      root = Tk()
      frame2 = Frame(root)
@@ -243,6 +257,7 @@ def cellInformation(x, y):
      entry2 = Entry(frame2, width=15, text="Y").grid(row=0,column=2)
      button1 = Button(frame2, width=5, text="run").grid(row=0,column=3)
      '''
+
      aStar(gameMap, start_x, start_y, goal_x, goal_y) 
      label2 = Label(root, text="F =").grid(row=1,column=0)
      label3 = Label(root, text=gameMap[x][y]['F']).grid(row=1,column=1)
@@ -252,10 +267,9 @@ def cellInformation(x, y):
      label7 = Label(root, text=gameMap[x][y]['H']).grid(row=3,column=1)
      print(gameMap[x][y]['F'])
 
-'''
+
 #cellInformation(5, 5)          
 app = SampleApp()
 app.mainloop()
 #root = Tk()
 #root.mainloop()
-'''

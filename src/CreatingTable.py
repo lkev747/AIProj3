@@ -34,8 +34,9 @@ def importantCells(start, goal):
      
      return start_x, start_y, goal_x, goal_y
 
-'''
+
 ## ----- A* weight = 1 ----- ##
+H = 4
 total_time = 0
 total_length = 0
 total_path_cost = 0
@@ -43,7 +44,7 @@ total_path_cost = 0
 M, S, G= open_file("map1a.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -53,7 +54,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1b.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -63,7 +64,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1c.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -73,7 +74,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1d.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -83,7 +84,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1e.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -93,7 +94,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1f.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -103,7 +104,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1g.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -113,7 +114,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1h.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -123,7 +124,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1i.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -133,7 +134,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map1j.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -145,7 +146,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2a.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -155,7 +156,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2b.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -165,7 +166,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2c.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -175,7 +176,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2d.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -185,7 +186,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2e.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -195,7 +196,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2f.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -205,7 +206,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2g.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -215,7 +216,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2h.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -225,7 +226,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2i.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -235,7 +236,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map2j.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -251,7 +252,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4a.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -261,7 +262,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4b.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -271,7 +272,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4c.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -281,7 +282,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4d.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -291,7 +292,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4e.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -301,7 +302,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4f.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -311,7 +312,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4g.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -321,7 +322,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4h.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -331,7 +332,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4i.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -341,7 +342,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map4j.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -353,7 +354,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5a.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -363,7 +364,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5b.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -373,7 +374,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5c.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -383,7 +384,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5d.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -393,7 +394,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5e.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -403,7 +404,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5f.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -413,7 +414,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5g.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -423,7 +424,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5h.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -433,7 +434,7 @@ total_path_cost += path_cost
 M, S, G= open_file("map5i.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
@@ -443,23 +444,24 @@ total_path_cost += path_cost
 M, S, G= open_file("map5j.txt")
 sx, sy, gx, gy = importantCells(S, G)
 start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 1)
+aStar(M, sx, sy, gx, gy, H, 1)
 running_time = time.time() - start_time
 total_time += running_time
 path_length, path_cost = printPath(M, sx, sy, gx, gy)
 total_length += path_length
 total_path_cost += path_cost
 
+# diagonal, manhattan, chebyshev, euclidean, minkowski
 
 print("------------------------------")
-print("A* w/ weight = 1")
+print("A* w/ Minkowski Distance ")
 print("Average Time = ", total_time/40.0)
 print("Average Length = ", total_length/40.0)
 print("Average Cost = ", total_path_cost/40.0)
 print("------------------------------")
 
 ## ----- A* weight = 1 ---- ##
-'''
+
 
 '''
 ## ----- A* weight = 2 ----- ##
@@ -889,35 +891,10 @@ print("------------------------------")
 '''
 
 
+
+
 '''
-print("A* weight 2")
-start_time = time.time()
-aStar(M, sx, sy, gx, gy, 0, 2)
-print(time.time() - start_time)
-
-start_time = time.time()
-aStar(M, sx, sy, gx, gy, 1, 2)
-print(time.time() - start_time)
-
-start_time = time.time()
-aStar(M, sx, sy, gx, gy, 2, 2)
-print(time.time() - start_time)
-
-start_time = time.time()
-aStar(M, sx, sy, gx, gy, 3, 2)
-print(time.time() - start_time)
-
-start_time = time.time()
-aStar(M, sx, sy, gx, gy, 4, 2)
-print(time.time() - start_time)
-
-start_time = time.time()
-aStar(M, sx, sy, gx, gy, 5, 2)
-print(time.time() - start_time)
-print("Length:")
-printPath(M, sx, sy, gx, gy)
-'''
-## ----- Uniform COst Search ----- ##
+## ----- Uniform Cost Search ----- ##
 total_time = 0
 total_length = 0
 total_path_cost = 0
@@ -1337,3 +1314,4 @@ print("Average Length = ", total_length/40.0)
 print("Average Cost = ", total_path_cost/40.0)
 print("------------------------------")
 ## ----- Uniform COst Search ----- ##
+'''
